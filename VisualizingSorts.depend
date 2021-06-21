@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1624115906 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/main.cpp
+1624260201 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/main.cpp
 	"bubblesort.cpp"
 
-1624115846 /home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.h
+1624259884 /home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.h
 	<SFML/Graphics.hpp>
 	<iostream>
-	<algorithm>
+	<thread>
+	<chrono>
 
 1539885013 /home/immo/Documents/Coding/C++/SFML-2.5.1/include/SFML/Graphics.hpp
 	<SFML/Window.hpp>
@@ -416,13 +417,13 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1624109126 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.cpp
+1624260513 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.cpp
 	"sorts.h"
 
-1624115836 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
+1624260425 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
 	"sorts.h"
 
-1624115836 /home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
+1624260425 /home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
 	"sorts.h"
 
 1539885013 /home/immo/Documents/Coding/C++/VisualizingSorts/include/SFML/Graphics.hpp

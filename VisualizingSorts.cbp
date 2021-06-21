@@ -22,20 +22,21 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="../SFML-2.5.1/include" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
-					<Add directory="../SFML-2.5.1/lib" />
+					<Add directory="lib" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="src/bubblesort.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/sorts.cpp" />
 		<Unit filename="src/sorts.h" />

@@ -3,7 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <algorithm>
+
+#include <thread>
+#include <chrono>
 
 class Sort: public sf::Sprite{
 private:
@@ -12,7 +14,9 @@ private:
 public:
     Sort(int width, int height, int amount);
     void render();
+    void stop();
 protected:
+    std::thread sortingThread;
     std::vector<sf::RectangleShape> lines;
     void algorithm();
 };
