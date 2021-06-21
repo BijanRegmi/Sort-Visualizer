@@ -23,3 +23,9 @@ void Sort::render(){
     }
     textr.display();
 }
+
+void Sort::stop(){
+    std::cout << "Stopping the thread" << std::endl;
+    sortingThread.detach();
+    std::cout << "Thread stopped. You can close the window now." << std::endl;
+}
