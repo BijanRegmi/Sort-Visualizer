@@ -13,7 +13,7 @@ public:
                 sf::Vector2f y1 = lines[j].getSize();
                 sf::Vector2f y2 = lines[j+1].getSize();
 
-                std::this_thread::sleep_for(std::chrono::microseconds(1));
+                std::this_thread::sleep_for(std::chrono::milliseconds(2));
 
                 if (y1.y > y2.y){
                     //Swap
