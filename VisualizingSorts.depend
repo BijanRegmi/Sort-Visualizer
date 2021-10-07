@@ -418,13 +418,13 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1633593003 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.cpp
+1633597093 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.cpp
 	"sorts.h"
 
-1633595007 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
+1633597198 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
 	"sorts.h"
 
-1633595007 /home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
+1633597198 /home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
 	"sorts.h"
 
 1633587842 /home/immo/Documents/Coding/C++/VisualizingSorts/include/SFML/Graphics.hpp
@@ -836,9 +836,9 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1633595012 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
+1633597219 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
 	"sorts.h"
 
-1633595012 /home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
+1633597219 /home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
 	"sorts.h"
 
