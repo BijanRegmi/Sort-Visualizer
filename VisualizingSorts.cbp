@@ -30,6 +30,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-pthread" />
 					<Add library="sfml-window" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-system" />
@@ -42,6 +43,7 @@
 		</Compiler>
 		<Unit filename="src/bubblesort.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/mergesort.cpp" />
 		<Unit filename="src/sorts.cpp" />
 		<Unit filename="src/sorts.h" />
 		<Extensions />
