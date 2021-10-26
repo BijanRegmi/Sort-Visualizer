@@ -41,11 +41,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="src/bubblesort.cpp" />
+		<Unit filename="src/Algorithms/algorithm.cpp" />
+		<Unit filename="src/Algorithms/algorithm.h" />
+		<Unit filename="src/Viewer.cpp" />
+		<Unit filename="src/Viewer.h" />
+		<Unit filename="src/blocks.cpp" />
+		<Unit filename="src/blocks.h" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="src/mergesort.cpp" />
-		<Unit filename="src/sorts.cpp" />
-		<Unit filename="src/sorts.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

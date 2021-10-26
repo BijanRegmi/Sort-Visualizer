@@ -1,24 +1,36 @@
-#ifndef SORT_H
-#define SORT_H
+#ifndef BLOCKS_H
+#define BLOCKS_H
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
+#include <vector>
 
-#include <thread>
-#include <chrono>
-
-class Sort: public sf::Sprite{
+class Blocks{
 private:
-    int width, height, amount;
-    sf::RenderTexture textr;
+    int amount;
+
+    // Counters
+    int comparecounter;
+    int readcounter;
+    int swapcounter;
+
 public:
-    Sort(int width, int height, int amount);
-    void render();
-    void stop();
-protected:
-    std::thread sortingThread;
-    std::vector<sf::RectangleShape> lines;
-    void algorithm();
+    std::vector<int> items;
+
+    // Constructors
+    Blocks();
+    Blocks(int, int);
+
+    // Data utils
+    int cmp(int, int);
+    void b_swap(int, int);
+
+    // Operator Overloading
+    float operator[](int);
+
+    // Data Extractors
+    int getSize();
+    int compcount();
+    int readcount();
+    int swapcount();
 };
 
-#endif // SORT_H
+#endif // BLOCKS_H

@@ -1,34 +1,67 @@
-#include "sorts.h"
+#include "blocks.h"
 
-Sort::Sort(int width, int height, int amount){
-    this->width = width;
-    this->height = height;
-    this->amount = amount;
+// Constructors
+Blocks::Blocks(){}
 
+Blocks::Blocks(int a, int m){
+    amount = a;
 
-    textr.create(width, height);
-    this->setTexture(textr.getTexture());
+    readcounter = 0;
+    comparecounter = 0;
 
-    for (int i=0; i<amount; i++){
-        sf::RectangleShape a(sf::Vector2f(width/amount, std::rand()%height));
-        //a.setFillColor(sf::Color(255, 0, 0, h*255/height));
-        lines.push_back(a);
+    items.clear();
+    for (int i=1; i<=amount; i++){
+        items.push_back(i*m/a);
     }
 }
 
-void Sort::render(){
-    textr.clear();
-    for (int i=0; i<lines.size(); i++){
-        lines[i].setPosition(sf::Vector2f(i*width/amount, height - lines[i].getSize().y));
-        int h = lines[i].getSize().y*255/height;
-        lines[i].setFillColor(sf::Color(0, h, 255-h));
-        textr.draw(lines[i]);
-    }
-    textr.display();
+// Data utils
+int Blocks::cmp(int i, int j){
+
+    comparecounter++;
+
+    int a = (*this)[i];             //this used instead of items so as to increase the read counter
+    int b = (*this)[j];
+
+    if (a == b)
+        return 0;
+    else if (a < b)
+        return -1;
+    else
+        return 1;
 }
 
-void Sort::stop(){
-    std::cout << "Stopping the thread" << std::endl;
-    sortingThread.detach();
-    std::cout << "Thread stopped. You can close the window now." << std::endl;
+void Blocks::b_swap(int i, int j){
+
+    swapcounter++;
+
+    int t = (*this)[i];
+    items[i] = (*this)[j];
+    items[j] = t;
+}
+
+// Operators
+float Blocks::operator[](int i){
+
+    if (i < amount){
+        readcounter++;
+        return items[i];
+    }
+}
+
+// Data Extractors
+int Blocks::getSize(){
+    return amount;
+}
+
+int Blocks::compcount(){
+    return comparecounter;
+}
+
+int Blocks::readcount(){
+    return readcounter;
+}
+
+int Blocks::swapcount(){
+    return swapcounter;
 }
