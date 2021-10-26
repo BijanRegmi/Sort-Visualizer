@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1635246146 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/main.cpp
+1635270278 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/main.cpp
 	"Viewer.h"
 	"blocks.h"
-	"Algorithms/algorithm.h"
+	"algorithm.h"
+	"statusbar.h"
 
 1633587842 /home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.h
 	<SFML/Graphics.hpp>
@@ -847,29 +848,30 @@
 	"algorithm.h"
 	"blocks.h"
 
-1635247262 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/blocks.cpp
+1635270532 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/blocks.cpp
 	"blocks.h"
 
-1635247268 /home/immo/Documents/Coding/C++/VisualizingSorts/src/blocks.h
+1635268970 /home/immo/Documents/Coding/C++/VisualizingSorts/src/blocks.h
 	<vector>
 
-1635246313 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/algorithm.cpp
+1635270061 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/algorithm.cpp
 	"algorithm.h"
 
-1635247285 /home/immo/Documents/Coding/C++/VisualizingSorts/src/algorithm.h
+1635269290 /home/immo/Documents/Coding/C++/VisualizingSorts/src/algorithm.h
 	"blocks.h"
 	<thread>
 	<chrono>
 	<algorithm>
 	<iostream>
+	<string>
 
 1635218132 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/test.cpp
 	"blocks.h"
 
-1635247280 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/Viewer.cpp
+1635269170 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/Viewer.cpp
 	"Viewer.h"
 
-1635244365 /home/immo/Documents/Coding/C++/VisualizingSorts/src/Viewer.h
+1635252757 /home/immo/Documents/Coding/C++/VisualizingSorts/src/Viewer.h
 	<SFML/Graphics.hpp>
 	"blocks.h"
 
@@ -890,4 +892,15 @@
 1635236237 /home/immo/Documents/Coding/C++/VisualizingSorts/src/Algorithms/bubblesort.cpp
 	"algorithm.h"
 	"../blocks.h"
+
+1635270854 /home/immo/Documents/Coding/C++/VisualizingSorts/src/statusbar.h
+	<SFML/Graphics.hpp>
+	"blocks.h"
+	"algorithm.h"
+	<sstream>
+	<iostream>
+	<iomanip>
+
+1635271129 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/statusbar.cpp
+	"statusbar.h"
 
