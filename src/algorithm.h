@@ -1,7 +1,7 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 
-#include "../blocks.h"
+#include "blocks.h"
 
 #include <thread>
 #include <chrono>

@@ -1,6 +1,6 @@
 #include "Viewer.h"
 #include "blocks.h"
-#include "Algorithms/algorithm.h"
+#include "algorithm.h"
 
 int main(){
     sf::RenderWindow win(sf::VideoMode(300,300), "SORT");
