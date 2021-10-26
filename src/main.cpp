@@ -1,45 +1,47 @@
-#include "bubblesort.cpp"
-#include "mergesort.cpp"
+#include "Viewer.h"
+#include "blocks.h"
+#include "Algorithms/algorithm.h"
 
 int main(){
-    sf::RenderWindow win(sf::VideoMode(700,335), "SORT");
+    sf::RenderWindow win(sf::VideoMode(300,300), "SORT");
     win.setFramerateLimit(60);
     sf::Event ev;
 
-    sf::Font font;
-    font.loadFromFile("src/font.ttf");
-
-    sf::Text atex("MERGE SORT", font);
-    sf::Text btex("BUBBLE SORT", font);
-    atex.setPosition(25, 300);
-    btex.setPosition(350, 300);
-
-    mergesort a(300, 300, 300);
-    bubblesort b(300, 300, 300);
-
-    a.setPosition(25, 0);
-    b.setPosition(350,0);
+    Blocks data(20,300);
+    Viewer vie(300, 300, &data);
+    Algorithms alg(&data);
 
     while(win.isOpen()){
         while(win.pollEvent(ev)){
             if(ev.type == sf::Event::Closed || (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape)){
+                alg.stop();
                 win.close();
-                a.stop();
             }
-            if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Space){
-                a.start();
-                b.start();
+
+            if (ev.type == sf::Event::KeyPressed){
+                    switch(ev.key.code){
+                    case sf::Keyboard::Space:
+                        alg.start();
+                        break;
+                    case sf::Keyboard::S:
+                        alg.setalg(0);
+                        break;
+                    case sf::Keyboard::B:
+                        alg.setalg(1);
+                        break;
+                    case sf::Keyboard::M:
+                        alg.setalg(2);
+                        break;
+                    default:
+                        std::cout << "No keybind set for this key!\n";
+                    }
             }
         }
 
-        a.render();
-        b.render();
+        vie.render();
 
         win.clear();
-        win.draw(a);
-        win.draw(b);
-        win.draw(atex);
-        win.draw(btex);
+        win.draw(vie);
         win.display();
 
     }

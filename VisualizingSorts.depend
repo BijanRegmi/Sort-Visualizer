@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1633594967 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/main.cpp
-	"bubblesort.cpp"
-	"mergesort.cpp"
+1635246146 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/main.cpp
+	"Viewer.h"
+	"blocks.h"
+	"Algorithms/algorithm.h"
 
 1633587842 /home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.h
 	<SFML/Graphics.hpp>
@@ -421,11 +422,13 @@
 1633597093 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/sorts.cpp
 	"sorts.h"
 
-1633597198 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
-	"sorts.h"
+1635221273 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
+	"algorithm.h"
+	"blocks.h"
 
-1633597198 /home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
-	"sorts.h"
+1635221273 /home/immo/Documents/Coding/C++/VisualizingSorts/src/bubblesort.cpp
+	"algorithm.h"
+	"blocks.h"
 
 1633587842 /home/immo/Documents/Coding/C++/VisualizingSorts/include/SFML/Graphics.hpp
 	<SFML/Window.hpp>
@@ -836,9 +839,53 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1633597219 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
-	"sorts.h"
+1635219289 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
+	"algorithm.h"
+	"blocks.h"
 
-1633597219 /home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
-	"sorts.h"
+1634484917 /home/immo/Documents/Coding/C++/VisualizingSorts/src/mergesort.cpp
+	"algorithm.h"
+	"blocks.h"
+
+1635244980 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/blocks.cpp
+	"blocks.h"
+
+1635245041 /home/immo/Documents/Coding/C++/VisualizingSorts/src/blocks.h
+	<vector>
+
+1635221066 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/algorithm.cpp
+	"algorithm.h"
+
+1635220190 /home/immo/Documents/Coding/C++/VisualizingSorts/src/algorithm.h
+	"blocks.h"
+	<thread>
+	<chrono>
+
+1635218132 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/test.cpp
+	"blocks.h"
+
+1635244456 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/Viewer.cpp
+	"Viewer.h"
+
+1635244365 /home/immo/Documents/Coding/C++/VisualizingSorts/src/Viewer.h
+	<SFML/Graphics.hpp>
+	"blocks.h"
+
+1635246129 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/Algorithms/algorithm.cpp
+	"algorithm.h"
+
+1635246098 /home/immo/Documents/Coding/C++/VisualizingSorts/src/Algorithms/algorithm.h
+	"../blocks.h"
+	<thread>
+	<chrono>
+	<algorithm>
+	<iostream>
+
+1635236237 source:/home/immo/Documents/Coding/C++/VisualizingSorts/src/Algorithms/bubblesort.cpp
+	"algorithm.h"
+	"../blocks.h"
+
+1635236237 /home/immo/Documents/Coding/C++/VisualizingSorts/src/Algorithms/bubblesort.cpp
+	"algorithm.h"
+	"../blocks.h"
 
