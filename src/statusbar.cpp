@@ -11,7 +11,7 @@ Bar::Bar(int w, int h, Blocks* b, Algorithms* a){
     texture.create(width, height);
     this->setTexture(texture.getTexture());
 
-    if (!font.loadFromFile("src/font2.ttf"))
+    if (!font.loadFromFile("src/font.ttf"))
     {
         std::cout << "Error loading font!";
     }
