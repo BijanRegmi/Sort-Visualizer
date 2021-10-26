@@ -6,8 +6,7 @@ Blocks::Blocks(){}
 Blocks::Blocks(int a, int m){
     amount = a;
 
-    readcounter = 0;
-    comparecounter = 0;
+    reset_counters();
 
     items.clear();
     for (int i=1; i<=amount; i++){
@@ -40,28 +39,20 @@ void Blocks::b_swap(int i, int j){
     items[j] = t;
 }
 
+void Blocks::reset_counters(){
+    comparecounter = 0;
+    readcounter = 0;
+    swapcounter = 0;
+    c_head = -1;
+    r_head = -1;
+}
+
 // Operators
 float Blocks::operator[](int i){
 
     if (i < amount){
+        r_head = i;
         readcounter++;
         return items[i];
     }
-}
-
-// Data Extractors
-int Blocks::getSize(){
-    return amount;
-}
-
-int Blocks::compcount(){
-    return comparecounter;
-}
-
-int Blocks::readcount(){
-    return readcounter;
-}
-
-int Blocks::swapcount(){
-    return swapcounter;
 }

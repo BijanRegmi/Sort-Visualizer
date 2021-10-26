@@ -4,33 +4,30 @@
 #include <vector>
 
 class Blocks{
-private:
-    int amount;
+public:
+    int amount;                 // Number of items to be sorted
 
     // Counters
     int comparecounter;
     int readcounter;
     int swapcounter;
 
-public:
-    std::vector<int> items;
+    std::vector<int> items;     // Array of items
+
+    int r_head;                 // Reading head
+    int c_head;                 // Checking head
 
     // Constructors
     Blocks();
-    Blocks(int, int);
+    Blocks(int width, int height);
 
     // Data utils
     int cmp(int, int);
     void b_swap(int, int);
+    void reset_counters();
 
     // Operator Overloading
     float operator[](int);
-
-    // Data Extractors
-    int getSize();
-    int compcount();
-    int readcount();
-    int swapcount();
 };
 
 #endif // BLOCKS_H
