@@ -3,10 +3,14 @@
 // Constructors
 Viewer::Viewer(){}
 
-Viewer::Viewer(int w, int h, Blocks* b){
+Viewer::Viewer(int w, int h, Blocks* b, Algorithms* a){
     width = w;
     height = h;
     blk = b;
+    alg = a;
+
+    // Initialize $(blk->amount) number of rectangles
+    rects = std::vector<sf::RectangleShape>(blk->amount);
 
     // Create and set textures
     texture.create(width, height);
@@ -15,24 +19,16 @@ Viewer::Viewer(int w, int h, Blocks* b){
 
 // Renderer
 void Viewer::render(){
-    float r_dx = width/blk->amount;                     // Width of the rectangular block
-    int r_head = blk->r_head;                          // Reader head position
-    int c_head = blk->c_head;                          // Checker head position
-
+    float r_dx = width/rects.size();                    // Width of the rectangular block
+    
     texture.clear();
-    for (int i=0; i<blk->amount; i++){
+    for (int i=0; i<rects.size(); i++){
         float h = blk->items[i];                        //Using items instead of blk[] so that counters aren't updated
 
-        sf::RectangleShape rect(sf::Vector2f(r_dx, h));
-        rect.setPosition(i*r_dx, height-h);
+        rects[i].setSize(sf::Vector2f(r_dx, h));
+        rects[i].setPosition(i*r_dx, height-h);
 
-        // Highlight the currently reading block
-        if (c_head >= i && c_head > 0)
-            rect.setFillColor(sf::Color::Green);
-        else if (i == r_head)
-            rect.setFillColor(sf::Color::Red);
-
-        texture.draw(rect);
+        texture.draw(rects[i]);
     }
     texture.display();
 }
