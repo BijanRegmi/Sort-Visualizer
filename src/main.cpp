@@ -52,6 +52,10 @@ int main(){
                         alg.setalg(4);
                         break;
 
+                    case sf::Keyboard::R:
+                        alg.setalg(5);
+                        break;
+
                     case sf::Keyboard::Add:
                         if (ev.key.shift && ev.key.control)
                             data.setdelay(-7);

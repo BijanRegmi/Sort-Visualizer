@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <iostream>
 
 #include "blocks.h"
 #include "algorithm.h"
@@ -14,12 +13,12 @@ private:
 
     std::vector<sf::RectangleShape> rects;  // Rectangles representing the sorting data
 
-    int width, height;                      // Width and height of the sprite
+    int width, height, r_dx;                // Width and height of the sprite and width of individual rectangle block
 
-    Blocks& blk;                            // Pointer to the blocks
-    Algorithms& alg;
+    Blocks& blk;                            // Reference variable to the blocks
+    Algorithms& alg;                        // Reference variable to the algorithm object
 
-    void colorizer(int index);
+    void colorizer(int index);              // Color the rects based on its index and selected alg
 
 public:
     // Constructors

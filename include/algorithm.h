@@ -10,7 +10,7 @@
 
 class Algorithms{
 private:
-    Blocks& data;               // Pointer to array of data to sort
+    Blocks& data;               // Reference to array of data to sort
 
     std::thread sortingThread;  // Thread for sorting the blocks
 
@@ -22,30 +22,31 @@ private:
     void check();
     void shuffle();
     void bubblesort();
-    void mergesort();   void m_ms(int left, int right);    void m_merge(int left, int mid, int right);
-    void quicksort();   void q_qs(int, int);    int q_fix(int, int);
-    void radixsort();   void r_cs(int);     int r_max();
+    void mergesort();   void m_ms(int left, int right);         void m_merge(int left, int mid, int right);
+    void quicksort();   void q_qs(int low, int high);           int q_fix(int low, int high);
+    void radixsort();   void r_cs(int place);                         int r_max();
 
     // Algorithm list
     const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort", "Radixsort"};
 public:
     // Constructor
-    Algorithms(Blocks& b);
+    Algorithms(Blocks& data_array);
 
     // Controllers
     void start();
     void stop();
 
-    bool working;               // Set true when the algo is performing task
+    // State variables
+    bool working;                           // Set true when the algo is performing task
     bool sorted;
+    int selectedAlg;                        // Currently selected algorithm index from alglist
 
-    unsigned int selectedAlg;   // Currently selected algorithm index from alglist
 
     // Setters
-    void setalg(int);           // Set Algorithm to use
+    void setalg(int algnumber);             // Set Algorithm to use
 
     // Getters
-    std::string getalg();       // Get currently selected alg name
+    std::string getalg();                   // Get currently selected alg name
 };
 
 #endif // ALGORITHM_H
