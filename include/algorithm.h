@@ -10,7 +10,7 @@
 
 class Algorithms{
 private:
-    Blocks* data;               // Pointer to array of data to sort
+    Blocks& data;               // Pointer to array of data to sort
 
     std::thread sortingThread;  // Thread for sorting the blocks
 
@@ -30,7 +30,7 @@ private:
     const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort", "Radixsort"};
 public:
     // Constructor
-    Algorithms(Blocks* b);
+    Algorithms(Blocks& b);
 
     // Controllers
     void start();
