@@ -7,7 +7,6 @@
 
 #include <sstream>
 #include <iostream>
-#include <iomanip>
 
 class Bar: public sf::Sprite{
 private:
@@ -24,7 +23,6 @@ private:
 
 public:
     // Constructors
-    Bar();
     Bar(int, int, Blocks*, Algorithms*);
 
     // Renderer

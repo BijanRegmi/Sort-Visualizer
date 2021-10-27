@@ -22,23 +22,25 @@ public:
     
     struct HEADS
     {
-        int r;                  // Reading head
-        int c;                  // Checking head
-        int w;                  // Writing head
+        int r;                      // Reading head
+        int c;                      // Checking head
+        int w;                      // Writing head
     }head;
     
-    std::vector<int> items;     // Array of items
+    std::vector<int> items;         // Array of items
     
     // Constructors
     Blocks();
-    Blocks(int width, int height);
+    Blocks(int amount, int max_val);
 
     // Data utils
-    int cmp(int, int);
-    void b_swap(int, int);
+    int cmp(int left, int right);
+    void b_swap(int a, int b);
+
+    // Setters
     void reset_counters();
     void reset_head();
-    void setdelay(int);         // Set delay for reads and writes
+    void setdelay(int delay_time);  // Set delay for reads and writes
 
     // Operator Overloading
     float operator[](int);

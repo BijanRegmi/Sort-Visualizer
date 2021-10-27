@@ -1,7 +1,6 @@
 #include "statusbar.h"
 
-Bar::Bar(){}
-
+//Constructors
 Bar::Bar(int w, int h, Blocks* b, Algorithms* a){
     width = w;
     height = h;
@@ -20,6 +19,7 @@ Bar::Bar(int w, int h, Blocks* b, Algorithms* a){
     text.setCharacterSize(10);
 }
 
+// Renderer
 void Bar::render(){
     std::stringstream sstr;
 

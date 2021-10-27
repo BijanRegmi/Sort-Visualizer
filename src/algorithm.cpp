@@ -10,6 +10,33 @@ Algorithms::Algorithms(Blocks& b):data(b){
     sortingThread = std::thread(&Algorithms::algo, this);   // Setup the thread
 }
 
+// Controllers
+void Algorithms::start(){
+    working = true;
+}
+
+void Algorithms::stop(){
+    working = false;
+    sortingThread.detach();
+}
+
+// Setters
+void Algorithms::setalg(int s){
+    if (s == -1)
+        selectedAlg = (selectedAlg + 1)%algcount;
+    else if (s == -2)
+        selectedAlg = (selectedAlg + algcount - 1)%algcount;
+    else
+        selectedAlg = s;
+    data.reset_head();
+    data.reset_counters();
+}
+
+// Data Extractors
+std::string Algorithms::getalg(){
+    return alglist[selectedAlg];
+}
+
 // Thread function
 void Algorithms::algo(){
     while(true){
@@ -33,47 +60,21 @@ void Algorithms::algo(){
             break;
         case 3:
             Algorithms::mergesort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 4:
             Algorithms::quicksort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 5:
             Algorithms::radixsort();
-            //Algorithms::check();
+            Algorithms::check();
         }
         working = false;
     }
 }
 
-// Controllers
-void Algorithms::start(){
-    working = true;
-}
-
-void Algorithms::stop(){
-    working = false;
-    sortingThread.detach();
-}
-
-void Algorithms::setalg(int s){
-    if (s == -1)
-        selectedAlg = (selectedAlg + 1)%algcount;
-    else if (s == -2)
-        selectedAlg = (selectedAlg - 1)%algcount;
-    else
-        selectedAlg = s;
-    data.reset_head();
-    data.reset_counters();
-}
-
-// Data Extractors
-std::string Algorithms::getalg(){
-    return alglist[selectedAlg];
-}
-
-// Sorting Algorithms
+// Sorting Algorithm Implementations
 void Algorithms::check(){
     selectedAlg = 0;
     for (data.head.c = 0; data.head.c < data.amount-1; data.head.c++){
@@ -221,3 +222,4 @@ int Algorithms::r_max(){
         if (data.cmp(i, max_i) == 1) max_i = i;
     return data[max_i];
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////

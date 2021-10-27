@@ -41,6 +41,7 @@ void Blocks::b_swap(int i, int j){
     this->operator()(j, t);
 }
 
+// Setters
 void Blocks::reset_counters(){
     counter.c = 0;
     counter.r = 0;
@@ -77,24 +78,24 @@ void Blocks::setdelay(int d){
 }
 
 // Operators
-float Blocks::operator[](int i){                // Read
+float Blocks::operator[](int i){                                        // Read
     if (i>=amount){
         std::cout << "Out of bound value " << i << " selected!";
         return 0;
     }
-    head.r = i;                                 // Update reading head
-    counter.r++;                                // Update read counter
+    head.r = i;                                                         // Update reading head
+    counter.r++;                                                        // Update read counter
     std::this_thread::sleep_for(std::chrono::microseconds(r_delay));    // Pause for read delay
     return items[i];
 }
 
-void Blocks::operator()(int dest, int val){     // Write
+void Blocks::operator()(int dest, int val){                             // Write
     if (dest>=amount){
         std::cout << "Out of bound value " << dest << " selected!";
         return;
     }
-    head.w = dest;                              // Update writing head
-    counter.w++;                                // Update write counter
+    head.w = dest;                                                      // Update writing head
+    counter.w++;                                                        // Update write counter
     std::this_thread::sleep_for(std::chrono::microseconds(w_delay));    // Pause for write delay
     items[dest] = val;
 }

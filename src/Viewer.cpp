@@ -4,6 +4,7 @@
 Viewer::Viewer(int w, int h, Blocks& b, Algorithms& a):blk(b), alg(a){
     width = w;
     height = h;
+    r_dx = width/blk.amount;
 
     // Initialize $(blk.amount) number of rectangles
     rects = std::vector<sf::RectangleShape>(blk.amount);
@@ -15,8 +16,6 @@ Viewer::Viewer(int w, int h, Blocks& b, Algorithms& a):blk(b), alg(a){
 
 // Renderer
 void Viewer::render(){
-    float r_dx = width/rects.size();                    // Width of the rectangular block
-    
     texture.clear();
     for (unsigned int i=0; i<rects.size(); i++){
         float h = blk.items[i];                        //Using items instead of blk[] so that counters aren't updated
