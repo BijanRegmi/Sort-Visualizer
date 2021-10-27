@@ -55,12 +55,20 @@ void Blocks::reset_head(){
 
 // Operators
 float Blocks::operator[](int i){                // Read
+    if (i>=amount){
+        std::cout << "Out of bound value " << i << " selected!";
+        return 0;
+    }
     head.r = i;                                 // Update reading head
     counter.r++;                                // Update read counter
     return items[i];
 }
 
 void Blocks::operator()(int dest, int val){     // Write
+    if (dest>=amount){
+        std::cout << "Out of bound value " << dest << " selected!";
+        return;
+    }
     head.w = dest;                              // Update writing head
     counter.w++;                                // Update write counter
     items[dest] = val;
