@@ -16,8 +16,6 @@ private:
 
     std::thread sortingThread;  // Thread for sorting the blocks
 
-    unsigned int selectedAlg;   // Currently selected algorithm index from alglist
-
     int algcount;               // Total number of algs in alglist
 
     void algo();                // Function that keeps running in the thread
@@ -40,6 +38,8 @@ public:
 
     bool working;               // Set true when the algo is performing task
     bool sorted;
+
+    unsigned int selectedAlg;   // Currently selected algorithm index from alglist
 
     int delay;                  // delay in microseconds
 

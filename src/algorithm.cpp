@@ -21,6 +21,7 @@ void Algorithms::algo(){
         }
 
         data->reset_counters();
+        data->reset_head();
         switch(selectedAlg){
         case 0:
             Algorithms::check();
@@ -58,6 +59,8 @@ void Algorithms::setalg(int s){
         selectedAlg = (selectedAlg - 1)%algcount;
     else
         selectedAlg = s;
+    data->reset_head();
+    data->reset_counters();
 }
 
 void Algorithms::setdelay(int d){
@@ -84,14 +87,14 @@ std::string Algorithms::getalg(){
 
 // Sorting Algorithms
 void Algorithms::check(){
-    for (data->c_head = 0; data->c_head < data->amount-1; data->c_head++){
-        if (data->cmp(data->c_head, data->c_head+1) != -1){
-            std::cout << "ERROR at " << data->c_head << std::endl;
+    for (data->head.c = 0; data->head.c < data->amount-1; data->head.c++){
+        if (data->cmp(data->head.c, data->head.c+1) != -1){
+            std::cout << "ERROR at " << data->head.c << std::endl;
             break;
         }
-        std::this_thread::sleep_for(std::chrono::microseconds(delay));
+        std::this_thread::sleep_for(std::chrono::microseconds(20000));
     }
-    sorted = (data->amount-1 == data->c_head) ? true : false;
+    sorted = (data->amount-1 == data->head.c) ? true : false;
 }
 
 void Algorithms::shuffle(){
