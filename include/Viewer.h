@@ -2,20 +2,26 @@
 #define VIEWER_H
 
 #include <SFML/Graphics.hpp>
+#include <vector>
+
 #include "blocks.h"
+#include "algorithm.h"
 
 class Viewer: public sf::Sprite{
 private:
-    sf::RenderTexture texture;  // Texture for sprite
+    sf::RenderTexture texture;              // Texture for sprite
 
-    int width, height;          // Width and height of the sprite
+    std::vector<sf::RectangleShape> rects;  // Rectangles representing the sorting data
 
-    Blocks* blk;                // Pointer to the blocks
+    int width, height;                      // Width and height of the sprite
+
+    Blocks* blk;                            // Pointer to the blocks
+    Algorithms* alg;
 
 public:
     // Constructors
     Viewer();
-    Viewer(int, int, Blocks*);
+    Viewer(int, int, Blocks*, Algorithms*);
 
     // Renderer
     void render();
