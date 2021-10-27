@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 
 #include "blocks.h"
 #include "algorithm.h"
@@ -17,6 +18,8 @@ private:
 
     Blocks* blk;                            // Pointer to the blocks
     Algorithms* alg;
+
+    void colorizer(int index);
 
 public:
     // Constructors

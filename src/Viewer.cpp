@@ -28,7 +28,37 @@ void Viewer::render(){
         rects[i].setSize(sf::Vector2f(r_dx, h));
         rects[i].setPosition(i*r_dx, height-h);
 
+        colorizer(i);
+
         texture.draw(rects[i]);
     }
     texture.display();
+}
+
+// Colorizer
+void Viewer::colorizer(int i){
+    
+
+    if (alg->working){
+        switch (alg->selectedAlg)
+        {
+        case 0:
+            if (i <= blk->head.c+1)
+                rects[i].setFillColor(sf::Color::Green);
+            else
+                rects[i].setFillColor(sf::Color::White);
+            break;
+        case 2:
+            if (i == blk->head.r)
+                rects[i].setFillColor(sf::Color::Red);
+            else
+                rects[i].setFillColor(sf::Color::White);
+            break;
+        default:
+            break;
+        }
+    } else {
+        if (blk->head.c == -1)
+            rects[i].setFillColor(sf::Color::White);
+    }
 }

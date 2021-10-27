@@ -32,6 +32,7 @@ public:
     int cmp(int, int);
     void b_swap(int, int);
     void reset_counters();
+    void reset_head();
 
     // Operator Overloading
     float operator[](int);
