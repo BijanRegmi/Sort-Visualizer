@@ -1,7 +1,7 @@
 #include "algorithm.h"
 
 // Constructor
-Algorithms::Algorithms(Blocks* b):data(b){
+Algorithms::Algorithms(Blocks& b):data(b){
     selectedAlg = 0;
     working = false;
     sorted = true;
@@ -18,8 +18,8 @@ void Algorithms::algo(){
             continue;
         }
 
-        data->reset_counters();
-        data->reset_head();
+        data.reset_counters();
+        data.reset_head();
         switch(selectedAlg){
         case 0:
             Algorithms::check();
@@ -64,8 +64,8 @@ void Algorithms::setalg(int s){
         selectedAlg = (selectedAlg - 1)%algcount;
     else
         selectedAlg = s;
-    data->reset_head();
-    data->reset_counters();
+    data.reset_head();
+    data.reset_counters();
 }
 
 // Data Extractors
@@ -76,34 +76,34 @@ std::string Algorithms::getalg(){
 // Sorting Algorithms
 void Algorithms::check(){
     selectedAlg = 0;
-    for (data->head.c = 0; data->head.c < data->amount-1; data->head.c++){
-        if (data->items[data->head.c] > data->items[data->head.c+1]){
-            std::cout << "ERROR at " << data->head.c << std::endl;
+    for (data.head.c = 0; data.head.c < data.amount-1; data.head.c++){
+        if (data.items[data.head.c] > data.items[data.head.c+1]){
+            std::cout << "ERROR at " << data.head.c << std::endl;
             break;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
-    sorted = (data->amount-1 == data->head.c) ? true : false;
+    sorted = (data.amount-1 == data.head.c) ? true : false;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::shuffle(){
-    std::random_shuffle(data->items.begin(), data->items.end());
+    std::random_shuffle(data.items.begin(), data.items.end());
     sorted = false;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::bubblesort(){
-    for (int i = 0; i < data->amount; i += 1){
-        for (int j = 0; j < data->amount-i-1; j += 1){
+    for (int i = 0; i < data.amount; i += 1){
+        for (int j = 0; j < data.amount-i-1; j += 1){
 
-            if (data->cmp(j, j+1) == 1){
-                data->b_swap(j, j+1);
+            if (data.cmp(j, j+1) == 1){
+                data.b_swap(j, j+1);
             }
         }
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::mergesort(){
-    m_ms(0, data->amount-1);
+    m_ms(0, data.amount-1);
 }
 void Algorithms::m_ms(int left, int right){
     if (left>=right) return;
@@ -123,8 +123,8 @@ void Algorithms::m_merge(int left, int mid, int right){
     int right_arr[right_n];
 
     // Copying arrays
-    for (int i=0; i<left_n; i++) left_arr[i] = data->operator[](left+i);
-    for (int i=0; i<right_n; i++) right_arr[i] = data->operator[](mid+1+i);
+    for (int i=0; i<left_n; i++) left_arr[i] = data[left+i];
+    for (int i=0; i<right_n; i++) right_arr[i] = data[mid+1+i];
 
     // Pointing ints
     int i = 0;
@@ -135,20 +135,20 @@ void Algorithms::m_merge(int left, int mid, int right){
     while (i<left_n && j<right_n)
     {
         if (left_arr[i] <= right_arr[j]){
-            data->operator()(left+k, left_arr[i]);
+            data(left+k, left_arr[i]);
             i++;
         } else {
-            data->operator()(left+k, right_arr[j]);
+            data(left+k, right_arr[j]);
             j++; 
         }
         k++;
     }
     while (i<left_n){
-        data->operator()(left+k, left_arr[i]);
+        data(left+k, left_arr[i]);
         i++; k++;
     }
     while (j<right_n){
-        data->operator()(left+k, right_arr[j]);
+        data(left+k, right_arr[j]);
         j++; k++;
     }
     
@@ -156,7 +156,7 @@ void Algorithms::m_merge(int left, int mid, int right){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::quicksort(){
-    q_qs(0, data->amount-1);
+    q_qs(0, data.amount-1);
 }
 void Algorithms::q_qs(int low, int high){
     if (low >= high) return;
@@ -169,13 +169,13 @@ int Algorithms::q_fix(int low, int high){
     int i = low - 1;
 
     for (int j = low; j<high; j++){
-        if (data->cmp(j, high) == -1){
+        if (data.cmp(j, high) == -1){
             i++;
-            if (i != j) data->b_swap(i, j);
+            if (i != j) data.b_swap(i, j);
         }
     }
 
-    data->b_swap(i+1, high);
+    data.b_swap(i+1, high);
     return i+1;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,13 +185,13 @@ void Algorithms::radixsort(){
         r_cs(p);
 }
 void Algorithms::r_cs(int place){
-    int s = data->amount;
+    int s = data.amount;
     float output[s];
     int count[10] = {0};
 
     // Storing how many times a digit appeared at the $(place)th position
     for (int i=0; i<s; i++)
-        count[ (static_cast<int>(data->operator[](i))/place)%10 ]++;
+        count[ (static_cast<int>(data[i])/place)%10 ]++;
 
     // Cummulative adding
     for (int i=1; i<10; i++)
@@ -204,7 +204,7 @@ void Algorithms::r_cs(int place){
 
     // Filling output array
     for (int i=0; i<s; i++){
-        float val = data->operator[](i);
+        float val = data[i];
         int digit = (static_cast<int>(val)/place)%10;
         output[ count[digit] ] = val;
         count[digit]++;
@@ -212,12 +212,12 @@ void Algorithms::r_cs(int place){
 
     // Filling original array
     for (int i=0; i<s; i++){
-        data->operator()(i, output[i]);
+        data(i, output[i]);
     }
 }
 int Algorithms::r_max(){
     int max_i = 0;
-    for (int i=0; i<data->amount; i++)
-        if (data->cmp(i, max_i) == 1) max_i = i;
-    return data->operator[](max_i);
+    for (int i=0; i<data.amount; i++)
+        if (data.cmp(i, max_i) == 1) max_i = i;
+    return data[max_i];
 }

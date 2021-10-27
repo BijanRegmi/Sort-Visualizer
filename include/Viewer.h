@@ -16,15 +16,14 @@ private:
 
     int width, height;                      // Width and height of the sprite
 
-    Blocks* blk;                            // Pointer to the blocks
-    Algorithms* alg;
+    Blocks& blk;                            // Pointer to the blocks
+    Algorithms& alg;
 
     void colorizer(int index);
 
 public:
     // Constructors
-    Viewer();
-    Viewer(int, int, Blocks*, Algorithms*);
+    Viewer(int, int, Blocks&, Algorithms&);
 
     // Renderer
     void render();
