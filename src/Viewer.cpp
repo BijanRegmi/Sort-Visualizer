@@ -54,6 +54,14 @@ void Viewer::colorizer(int i){
             else
                 rects[i].setFillColor(sf::Color::White);
             break;
+        case 4:
+            if (i == blk->head.r)
+                rects[i].setFillColor(sf::Color::Red);
+            else if (i == blk->head.w)
+                rects[i].setFillColor(sf::Color::Blue);
+            else
+                rects[i].setFillColor(sf::Color::White);
+            break;
         default:
             break;
         }

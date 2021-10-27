@@ -25,7 +25,6 @@ int main(){
             // Keybindings
             if (ev.type == sf::Event::KeyPressed){
                     switch(ev.key.code){
-                    case sf::Keyboard::Q:
                     case sf::Keyboard::Escape:
                         alg.stop();
                         win.close();
@@ -47,6 +46,10 @@ int main(){
 
                     case sf::Keyboard::M:
                         alg.setalg(3);
+                        break;
+
+                    case sf::Keyboard::Q:
+                        alg.setalg(4);
                         break;
 
                     case sf::Keyboard::Add:

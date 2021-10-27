@@ -25,9 +25,10 @@ private:
     void shuffle();
     void bubblesort();
     void mergesort();
+    void quicksort();   void q_qs(int, int);    int q_fix(int, int);
 
     // Algorithm list
-    const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort"};
+    const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort"};
 public:
     // Constructor
     Algorithms(Blocks* b);

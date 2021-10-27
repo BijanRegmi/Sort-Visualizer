@@ -37,6 +37,10 @@ void Algorithms::algo(){
             Algorithms::mergesort();
             Algorithms::check();
             break;
+        case 4:
+            Algorithms::quicksort();
+            //Algorithms::check();
+            break;
         }
         working = false;
     }
@@ -87,6 +91,7 @@ std::string Algorithms::getalg(){
 
 // Sorting Algorithms
 void Algorithms::check(){
+    selectedAlg = 0;
     for (data->head.c = 0; data->head.c < data->amount-1; data->head.c++){
         if (data->cmp(data->head.c, data->head.c+1) != -1){
             std::cout << "ERROR at " << data->head.c << std::endl;
@@ -101,7 +106,7 @@ void Algorithms::shuffle(){
     std::random_shuffle(data->items.begin(), data->items.end());
     sorted = false;
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::bubblesort(){
     for (int i = 0; i < data->amount; i += 1){
         for (int j = 0; j < data->amount-i-1; j += 1){
@@ -114,7 +119,33 @@ void Algorithms::bubblesort(){
         }
     }
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::mergesort(){
     std::cout << "Not implemented" << std::endl;
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Algorithms::quicksort(){
+    q_qs(0, data->amount-1);
+}
+void Algorithms::q_qs(int low, int high){
+    if (low >= high) return;
+    int pivot_index = q_fix(low, high);
+
+    q_qs(low, pivot_index-1);
+    std::this_thread::sleep_for(std::chrono::microseconds(delay));
+    q_qs(pivot_index+1, high);
+}
+int Algorithms::q_fix(int low, int high){
+    int i = low - 1;
+
+    for (int j = low; j<high; j++){
+        if (data->cmp(j, high) == -1){
+            i++;
+            if (i != j) data->b_swap(i, j);
+        }
+    }
+
+    data->b_swap(i+1, high);
+    return i+1;
+}
+////////////////////////////////////////////////////////////////
