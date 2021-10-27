@@ -7,16 +7,23 @@ class Blocks{
 public:
     int amount;                 // Number of items to be sorted
 
-    // Counters
-    int comparecounter;
-    int readcounter;
-    int swapcounter;
-
+    struct COUNTERS
+    {
+        int c;                  // Compare counter
+        int r;                  // Read counter
+        int w;                  // Write counter
+        int s;                  // Swap counter
+    }counter;
+    
+    struct HEADS
+    {
+        int r;                  // Reading head
+        int c;                  // Checking head
+        int w;                  // Writing head
+    }head;
+    
     std::vector<int> items;     // Array of items
-
-    int r_head;                 // Reading head
-    int c_head;                 // Checking head
-
+    
     // Constructors
     Blocks();
     Blocks(int width, int height);
@@ -28,6 +35,7 @@ public:
 
     // Operator Overloading
     float operator[](int);
+    void operator()(int, int);
 };
 
 #endif // BLOCKS_H
