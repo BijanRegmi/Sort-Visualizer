@@ -41,6 +41,9 @@ void Algorithms::algo(){
             Algorithms::quicksort();
             //Algorithms::check();
             break;
+        case 5:
+            Algorithms::radixsort();
+            //Algorithms::check();
         }
         working = false;
     }
@@ -199,3 +202,46 @@ int Algorithms::q_fix(int low, int high){
     return i+1;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Algorithms::radixsort(){
+    int max_val = r_max();
+    for (int p=1; max_val/p>0; p*=10)
+        r_cs(p);
+}
+void Algorithms::r_cs(int place){
+    int s = data->amount;
+    float output[s];
+    int count[10] = {0};
+
+    // Storing how many times a digit appeared at the $(place)th position
+    for (int i=0; i<s; i++)
+        count[ (static_cast<int>(data->operator[](i))/place)%10 ]++;
+
+    // Cummulative adding
+    for (int i=1; i<10; i++)
+        count[i] += count[i-1];
+    
+    // Shifting right
+    for (int i=9; i>0; i--)
+        count[i] = count[i-1];
+    count[0] = 0;
+
+    // Filling output array
+    for (int i=0; i<s; i++){
+        float val = data->operator[](i);
+        int digit = (static_cast<int>(val)/place)%10;
+        output[ count[digit] ] = val;
+        count[digit]++;
+        std::this_thread::sleep_for(std::chrono::microseconds(delay));
+    }
+
+    // Filling original array
+    for (int i=0; i<s; i++){
+        data->operator()(i, output[i]);
+    }
+}
+int Algorithms::r_max(){
+    int max_i = 0;
+    for (int i=0; i<data->amount; i++)
+        if (data->cmp(i, max_i) == 1) max_i = i;
+    return data->operator[](max_i);
+}
