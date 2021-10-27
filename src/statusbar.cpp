@@ -24,9 +24,10 @@ void Bar::render(){
     std::stringstream sstr;
 
     sstr << "Selected Alg: "     << alg->getalg()
-         << " | Compare count: " << data->comparecounter
-         << " | Read count: "    << data->readcounter
-         << " | Swap count: "    << data->swapcounter
+         << " | Compare count: " << data->counter.c
+         << " | Read count: "    << data->counter.r
+         << " | Write count: "   << data->counter.w
+         << " | Swap count: "    << data->counter.s
          << " | Delay: "         << alg->delay << " microseconds"
          << " | Data size: "     << data->amount
          << " | Working: "       << (alg->working ? "Yes" : "No ")
