@@ -3,8 +3,6 @@
 
 #include "blocks.h"
 
-#include <thread>
-#include <chrono>
 #include <algorithm>
 
 #include <iostream>
@@ -43,10 +41,7 @@ public:
 
     unsigned int selectedAlg;   // Currently selected algorithm index from alglist
 
-    int delay;                  // delay in microseconds
-
     // Setters
-    void setdelay(int);         // Set delay for algorithm loops
     void setalg(int);           // Set Algorithm to use
 
     // Getters

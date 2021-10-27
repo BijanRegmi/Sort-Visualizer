@@ -6,6 +6,7 @@ Blocks::Blocks(){}
 Blocks::Blocks(int a, int m){
     amount = a;
 
+    setdelay(10);
     reset_counters();
     reset_head();
 
@@ -53,6 +54,28 @@ void Blocks::reset_head(){
     head.w = -1;
 }
 
+void Blocks::setdelay(int d){
+    if (d > 0){
+        r_delay = d;
+        w_delay = d;
+    } else if (d == -1)                     // +
+        r_delay += 10;
+    else if (d == -2 && w_delay > 10)       // -
+        r_delay -= 10;
+    else if (d == -3)                       // S+
+        w_delay += 10;
+    else if (d == -4 && w_delay > 10)       // S-
+        w_delay -=10;
+    else if (d == -5)                       // C+
+        r_delay += 100;
+    else if (d == -6 && r_delay > 100)      // C-
+        r_delay -= 100;
+    else if (d == -7)                       // CS+
+        w_delay += 100;
+    else if (d == -8 && w_delay > 100)      // CS-
+        w_delay -= 100;
+}
+
 // Operators
 float Blocks::operator[](int i){                // Read
     if (i>=amount){
@@ -61,6 +84,7 @@ float Blocks::operator[](int i){                // Read
     }
     head.r = i;                                 // Update reading head
     counter.r++;                                // Update read counter
+    std::this_thread::sleep_for(std::chrono::microseconds(r_delay));    // Pause for read delay
     return items[i];
 }
 
@@ -71,5 +95,6 @@ void Blocks::operator()(int dest, int val){     // Write
     }
     head.w = dest;                              // Update writing head
     counter.w++;                                // Update write counter
+    std::this_thread::sleep_for(std::chrono::microseconds(w_delay));    // Pause for write delay
     items[dest] = val;
 }
