@@ -28,7 +28,7 @@ void Bar::render(){
          << " | Read count: "    << data->counter.r
          << " | Write count: "   << data->counter.w
          << " | Swap count: "    << data->counter.s
-         << " | Delay: "         << alg->delay << " microseconds"
+         << " | Delay: ("        << data->r_delay                   << ", " << data->w_delay << ") "
          << " | Data size: "     << data->amount
          << " | Working: "       << (alg->working ? "Yes" : "No ")
          << " | Sorted: "        << (alg->sorted ? "Yes" : "No ") ;

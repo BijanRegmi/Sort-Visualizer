@@ -54,20 +54,24 @@ int main(){
 
                     case sf::Keyboard::Add:
                         if (ev.key.shift && ev.key.control)
-                            alg.setdelay(-5);
+                            data.setdelay(-7);
+                        else if (ev.key.control)
+                            data.setdelay(-5);
                         else if (ev.key.shift)
-                            alg.setdelay(-3);
+                            data.setdelay(-3);
                         else
-                            alg.setdelay(-1);
+                            data.setdelay(-1);
                         break;
 
                     case sf::Keyboard::Subtract:
                         if (ev.key.shift && ev.key.control)
-                            alg.setdelay(-6);
+                            data.setdelay(-8);
+                        else if (ev.key.control)
+                            data.setdelay(-6);
                         else if (ev.key.shift)
-                            alg.setdelay(-4);
+                            data.setdelay(-4);
                         else
-                            alg.setdelay(-2);
+                            data.setdelay(-2);
                         break;
 
                     case sf::Keyboard::Up:

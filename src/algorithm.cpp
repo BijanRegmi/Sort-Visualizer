@@ -7,8 +7,6 @@ Algorithms::Algorithms(Blocks* b):data(b){
     sorted = true;
     algcount = alglist.size();
 
-    setdelay(20);
-
     sortingThread = std::thread(&Algorithms::algo, this);   // Setup the thread
 }
 
@@ -70,23 +68,6 @@ void Algorithms::setalg(int s){
     data->reset_counters();
 }
 
-void Algorithms::setdelay(int d){
-    if (d > 0)
-        delay = d;
-    else if (d == -1)
-        delay += 10;
-    else if (d == -2 && delay > 10)
-        delay -= 10;
-    else if (d == -3)
-        delay += 100;
-    else if (d == -4 && delay > 100)
-        delay -=100;
-    else if (d == -5)
-        delay += 1000;
-    else if (d == -6 && delay > 1000)
-        delay -= 1000;
-}
-
 // Data Extractors
 std::string Algorithms::getalg(){
     return alglist[selectedAlg];
@@ -96,11 +77,11 @@ std::string Algorithms::getalg(){
 void Algorithms::check(){
     selectedAlg = 0;
     for (data->head.c = 0; data->head.c < data->amount-1; data->head.c++){
-        if (data->cmp(data->head.c, data->head.c+1) != -1){
+        if (data->items[data->head.c] > data->items[data->head.c+1]){
             std::cout << "ERROR at " << data->head.c << std::endl;
             break;
         }
-        std::this_thread::sleep_for(std::chrono::microseconds(20000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
     sorted = (data->amount-1 == data->head.c) ? true : false;
 }
@@ -117,8 +98,6 @@ void Algorithms::bubblesort(){
             if (data->cmp(j, j+1) == 1){
                 data->b_swap(j, j+1);
             }
-
-            std::this_thread::sleep_for(std::chrono::microseconds(delay));
         }
     }
 }
@@ -131,7 +110,6 @@ void Algorithms::m_ms(int left, int right){
     int mid = (left + right)/2;
 
     m_ms(left, mid);
-    std::this_thread::sleep_for(std::chrono::microseconds(delay));
     m_ms(mid+1, right);
 
     m_merge(left, mid, right);
@@ -185,7 +163,6 @@ void Algorithms::q_qs(int low, int high){
     int pivot_index = q_fix(low, high);
 
     q_qs(low, pivot_index-1);
-    std::this_thread::sleep_for(std::chrono::microseconds(delay));
     q_qs(pivot_index+1, high);
 }
 int Algorithms::q_fix(int low, int high){
@@ -231,7 +208,6 @@ void Algorithms::r_cs(int place){
         int digit = (static_cast<int>(val)/place)%10;
         output[ count[digit] ] = val;
         count[digit]++;
-        std::this_thread::sleep_for(std::chrono::microseconds(delay));
     }
 
     // Filling original array
