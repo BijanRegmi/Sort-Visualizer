@@ -24,7 +24,7 @@ private:
     void check();
     void shuffle();
     void bubblesort();
-    void mergesort();
+    void mergesort();   void m_ms(int left, int right);    void m_merge(int left, int mid, int right);
     void quicksort();   void q_qs(int, int);    int q_fix(int, int);
 
     // Algorithm list

@@ -35,7 +35,7 @@ void Algorithms::algo(){
             break;
         case 3:
             Algorithms::mergesort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 4:
             Algorithms::quicksort();
@@ -101,7 +101,7 @@ void Algorithms::check(){
     }
     sorted = (data->amount-1 == data->head.c) ? true : false;
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::shuffle(){
     std::random_shuffle(data->items.begin(), data->items.end());
     sorted = false;
@@ -121,7 +121,57 @@ void Algorithms::bubblesort(){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::mergesort(){
-    std::cout << "Not implemented" << std::endl;
+    m_ms(0, data->amount-1);
+}
+void Algorithms::m_ms(int left, int right){
+    if (left>=right) return;
+    int mid = (left + right)/2;
+
+    m_ms(left, mid);
+    std::this_thread::sleep_for(std::chrono::microseconds(delay));
+    m_ms(mid+1, right);
+
+    m_merge(left, mid, right);
+}
+void Algorithms::m_merge(int left, int mid, int right){
+    int left_n = mid - left + 1;
+    int right_n = right - mid;      // right - (mid + 1) + 1
+    
+    // Temporary arrays
+    int left_arr[left_n];
+    int right_arr[right_n];
+
+    // Copying arrays
+    for (int i=0; i<left_n; i++) left_arr[i] = data->operator[](left+i);
+    for (int i=0; i<right_n; i++) right_arr[i] = data->operator[](mid+1+i);
+
+    // Pointing ints
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    // Writing to data
+    while (i<left_n && j<right_n)
+    {
+        if (left_arr[i] <= right_arr[j]){
+            data->operator()(left+k, left_arr[i]);
+            i++;
+        } else {
+            data->operator()(left+k, right_arr[j]);
+            j++; 
+        }
+        k++;
+    }
+    while (i<left_n){
+        data->operator()(left+k, left_arr[i]);
+        i++; k++;
+    }
+    while (j<right_n){
+        data->operator()(left+k, right_arr[j]);
+        j++; k++;
+    }
+    
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::quicksort(){
@@ -148,4 +198,4 @@ int Algorithms::q_fix(int low, int high){
     data->b_swap(i+1, high);
     return i+1;
 }
-////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
