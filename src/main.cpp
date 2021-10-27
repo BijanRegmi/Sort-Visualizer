@@ -15,8 +15,8 @@ int main(){
     sf::Event ev;
 
     Blocks data(DATA_SIZE, HEIGHT-BAR_H);
-    Viewer vie(WIDTH, HEIGHT-BAR_H, &data);
     Algorithms alg(&data);
+    Viewer vie(WIDTH, HEIGHT-BAR_H, &data, &alg);
     Bar bar(WIDTH, BAR_H, &data, &alg);
     bar.setPosition(0, HEIGHT-BAR_H);
 
