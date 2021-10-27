@@ -17,10 +17,10 @@ Blocks::Blocks(int a, int m){
 // Data utils
 int Blocks::cmp(int i, int j){
 
-    comparecounter++;
+    counter.c++;                                // Update compare counter
 
-    int a = (*this)[i];             //this used instead of items so as to increase the read counter
-    int b = (*this)[j];
+    int a = this->operator[](i);                // this used instead of items so as to increase the read counter
+    int b = this->operator[](j);
 
     if (a == b)
         return 0;
@@ -32,27 +32,33 @@ int Blocks::cmp(int i, int j){
 
 void Blocks::b_swap(int i, int j){
 
-    swapcounter++;
+    counter.s++;                                // Update swap counter
 
-    int t = (*this)[i];
-    items[i] = (*this)[j];
+    int t = this->operator[](i);                // this used instead of items so as to increase the read counter
+    items[i] = this->operator[](j);
     items[j] = t;
 }
 
 void Blocks::reset_counters(){
-    comparecounter = 0;
-    readcounter = 0;
-    swapcounter = 0;
-    c_head = -1;
-    r_head = -1;
+    counter.c = 0;
+    counter.r = 0;
+    counter.w = 0;
+    counter.s = 0;
+
+    head.c = -1;
+    head.r = -1;
+    head.w = -1;
 }
 
 // Operators
-float Blocks::operator[](int i){
+float Blocks::operator[](int i){                // Read
+    head.r = i;                                 // Update reading head
+    counter.r++;                                // Update read counter
+    return items[i];
+}
 
-    if (i < amount){
-        r_head = i;
-        readcounter++;
-        return items[i];
-    }
+void Blocks::operator()(int dest, int val){     // Write
+    head.w = dest;                              // Update writing head
+    counter.w++;                                // Update write counter
+    items[dest] = val;
 }
