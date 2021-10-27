@@ -2,6 +2,7 @@
 #define BLOCKS_H
 
 #include <vector>
+#include <iostream>
 
 class Blocks{
 public:
