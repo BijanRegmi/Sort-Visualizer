@@ -37,32 +37,46 @@ void Viewer::colorizer(int i){
     if (alg.working){
         switch (alg.selectedAlg)
         {
-        case 0:
-            if (i <= blk.head.c+1)
-                rects[i].setFillColor(sf::Color::Green);
+        case 0:                                                                         // Check
+            if (i <= blk.head.c+3)
+                rects[i].setFillColor(sf::Color::Green);        // Green for those rects which are in sorted order
             else
                 rects[i].setFillColor(sf::Color::White);
             break;
-        case 2:
+        case 1:                                                                         // Shuffle
+            rects[i].setFillColor(sf::Color::White);            // All white
+            break;
+        case 2:                                                                         // Bubblesort   |   Coloring reading head only
             if (i == blk.head.r)
-                rects[i].setFillColor(sf::Color::Red);
+                rects[i].setFillColor(sf::Color::Red);          // Red reading head
             else
                 rects[i].setFillColor(sf::Color::White);
             break;
-        case 4:
-        case 5:
-            if (i == blk.head.r)
-                rects[i].setFillColor(sf::Color::Red);
+        case 4:                                                                         // Quicksort
+            if (i == alg._q_pivot_index)
+                rects[i].setFillColor(sf::Color(169, 0, 255));  // Purple for the pivot element
+            else if (i == blk.head.r)
+                rects[i].setFillColor(sf::Color::Red);          // Red reading head
             else if (i == blk.head.w)
-                rects[i].setFillColor(sf::Color::Blue);
+                rects[i].setFillColor(sf::Color::Blue);         // Blue writing head
             else
-                rects[i].setFillColor(sf::Color::White);
+                rects[i].setFillColor(sf::Color::White);        // White none
+        case 3:                                                                         // Mergesort
+        case 5:                                                                         // Radixsort
+            if (i == blk.head.r)
+                rects[i].setFillColor(sf::Color::Red);          // Red reading head
+            else if (i == blk.head.w)
+                rects[i].setFillColor(sf::Color::Blue);         // Blue writing head
+            else
+                rects[i].setFillColor(sf::Color::White);        // White none
             break;
         default:
             break;
         }
     } else {
-        if (blk.head.c == -1)
-            rects[i].setFillColor(sf::Color::White);
+        if (blk.head.c == -2)                                                           // If the array is sorted and selected alg is still {check}
+            rects[i].setFillColor(sf::Color::Green);            // All green
+        else 
+            rects[i].setFillColor(sf::Color::White);            // If no work is going on then white
     }
 }
