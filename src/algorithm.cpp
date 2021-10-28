@@ -2,7 +2,7 @@
 
 // Constructor
 Algorithms::Algorithms(Blocks& b):data(b){
-    def_delays = {10*b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount, 450000/data.amount};
+    def_delays = {b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount, 450000/data.amount};
     setalg(0);
     working = false;
     sorted = true;
