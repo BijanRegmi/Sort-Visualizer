@@ -26,7 +26,7 @@ private:
     void shuffle();
     void bubblesort();
     void mergesort();   void m_ms(int left, int right);         void m_merge(int left, int mid, int right);
-    void quicksort();   void q_qs(int low, int high);           int q_fix(int low, int high);
+    void quicksort();   void q_qs(int low, int high);           int q_fix(int low, int high);               public: int _q_pivot_index=-1; private:
     void radixsort();   void r_cs(int place);                         int r_max();
 
     // Algorithm list
