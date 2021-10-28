@@ -60,19 +60,19 @@ void Blocks::setdelay(int d){
         w_delay = d;
     } else if (d == -1)                     // +
         r_delay += 10;
-    else if (d == -2 && w_delay > 10)       // -
+    else if (d == -2 && r_delay >= 10)      // -
         r_delay -= 10;
     else if (d == -3)                       // S+
         w_delay += 10;
-    else if (d == -4 && w_delay > 10)       // S-
+    else if (d == -4 && w_delay >= 10)      // S-
         w_delay -=10;
     else if (d == -5)                       // C+
         r_delay += 100;
-    else if (d == -6 && r_delay > 100)      // C-
+    else if (d == -6 && r_delay >= 100)     // C-
         r_delay -= 100;
     else if (d == -7)                       // CS+
         w_delay += 100;
-    else if (d == -8 && w_delay > 100)      // CS-
+    else if (d == -8 && w_delay >= 100)     // CS-
         w_delay -= 100;
 }
 
