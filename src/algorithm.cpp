@@ -2,7 +2,7 @@
 
 // Constructor
 Algorithms::Algorithms(Blocks& b):data(b){
-    def_delays = {data.sound.get_c_dur(), 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount};
+    def_delays = {10*b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount};
     setalg(0);
     working = false;
     sorted = true;
@@ -79,6 +79,7 @@ void Algorithms::algo(){
 // Sorting Algorithm Implementations
 void Algorithms::check(){
     selectedAlg = 0;
+    data.setdelay(def_delays[selectedAlg]);
     for (data.head.c = 0; data.head.c < data.amount-1; data.head.c++){
         float val = data.items[data.head.c];
         if (val > data.items[data.head.c+1]){
@@ -90,7 +91,11 @@ void Algorithms::check(){
         std::this_thread::sleep_for(std::chrono::microseconds(def_delays[0]));
     }
     sorted = (data.amount-1 == data.head.c) ? true : false;
-    (sorted)? data.sound.play(3, 1) : data.sound.play(4, 1);
+    if (sorted){
+        data.sound.play(3, 1);
+        data.head.c = -2;           // Denotes that checking has been completed and the array is completely sorted
+    } else 
+        data.sound.play(4, 1);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::shuffle(){
@@ -167,10 +172,10 @@ void Algorithms::quicksort(){
 }
 void Algorithms::q_qs(int low, int high){
     if (low >= high) return;
-    int pivot_index = q_fix(low, high);
+    _q_pivot_index = q_fix(low, high);
 
-    q_qs(low, pivot_index-1);
-    q_qs(pivot_index+1, high);
+    q_qs(low, _q_pivot_index-1);
+    q_qs(_q_pivot_index+1, high);
 }
 int Algorithms::q_fix(int low, int high){
     int i = low - 1;
