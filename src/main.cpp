@@ -12,8 +12,6 @@ int main(){
     const int BAR_H = 0.05*HEIGHT;
     const int DATA_SIZE = 0.1*WIDTH;
 
-    std::cout << "Def width: " << WIDTH << " Def height: " << HEIGHT << " Bar height: " << BAR_H << std::endl;
-
     sf::RenderWindow win(def, "SORT", sf::Style::Fullscreen);
     win.setFramerateLimit(FPS);
     sf::Event ev;
@@ -62,6 +60,10 @@ int main(){
                         alg.setalg(5);
                         break;
 
+                    case sf::Keyboard::I:
+                        alg.setalg(6);
+                        break;
+
                     case sf::Keyboard::Add:
                         if (ev.key.shift && ev.key.control)
                             data.setdelay(-7);
@@ -82,6 +84,11 @@ int main(){
                             data.setdelay(-4);
                         else
                             data.setdelay(-2);
+                        break;
+
+                    case sf::Keyboard::Num0:
+                    case sf::Keyboard::Numpad0:
+                        data.setdelay(0);
                         break;
 
                     case sf::Keyboard::Up:
