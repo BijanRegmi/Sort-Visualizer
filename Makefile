@@ -20,7 +20,7 @@ BIN = bin
 LIBS = none
 
 # Linking flags
-LDFLAGS = -pthread  -lsfml-window -lsfml-graphics -lsfml-system
+LDFLAGS = -pthread  -lsfml-window -lsfml-graphics -lsfml-audio -lsfml-system
 
 ###################################################################################################
 

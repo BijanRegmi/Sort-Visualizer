@@ -4,19 +4,22 @@
 #include "blocks.h"
 
 #include <algorithm>
+#include <vector>
 
 #include <iostream>
 #include <string>
 
 class Algorithms{
 private:
-    Blocks& data;               // Reference to array of data to sort
+    Blocks& data;                   // Reference to array of data to sort
 
-    std::thread sortingThread;  // Thread for sorting the blocks
+    std::thread sortingThread;      // Thread for sorting the blocks
 
-    int algcount;               // Total number of algs in alglist
+    int algcount;                   // Total number of algs in alglist
 
-    void algo();                // Function that keeps running in the thread
+    std::vector<int> def_delays;    // Default delays for the algs
+    
+    void algo();                    // Function that keeps running in the thread
 
     // Sorting algorithms
     void check();

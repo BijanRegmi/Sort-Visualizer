@@ -2,6 +2,7 @@
 #include "blocks.h"
 #include "algorithm.h"
 #include "statusbar.h"
+#include "sound_effect.h"
 
 int main(){
     int WIDTH = 1000;
@@ -13,8 +14,9 @@ int main(){
     sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SORT");
     win.setFramerateLimit(FPS);
     sf::Event ev;
-
-    Blocks data(DATA_SIZE, HEIGHT-BAR_H);
+    
+    sound_effect s_effect;
+    Blocks data(DATA_SIZE, HEIGHT-BAR_H, s_effect);
     Algorithms alg(data);
     Viewer vie(WIDTH, HEIGHT-BAR_H, data, alg);
     Bar bar(WIDTH, BAR_H, &data, &alg);
