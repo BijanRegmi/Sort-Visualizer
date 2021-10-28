@@ -15,7 +15,7 @@ git clone --recursive https://github.com/BijanRegmi/Sort-Visualizer.git
 3. Compile and run
 
 ```bash
-make run
+mkdir bin && make run
 ```
 
 ## KeyBindings
@@ -30,10 +30,12 @@ KEY | ACTION
 ----|-----------
 C|Switch to check mode
 S|Switch to shuffle mode
-B|Set bubblesort as selected algorithm
-M|Set mergesort as selected algorithm
-Q|Set quicksort as selected algorithm
-R|Set radixsort as selected algorithm
+B|Set Bubble Sort as selected algorithm
+M|Set Merge Sort as selected algorithm
+Q|Set Quick Sort as selected algorithm
+R|Set Radix Sort as selected algorithm
+I|Set Insertion Sort as selected algorithm
+Shift S|Set selection Sort as selected algorithm
 
 ### **Delay**
 KEY | ACTION
@@ -46,6 +48,7 @@ Shift +|Increase writing delay by 10μs
 Shift -|Decrease writing delay by 10μs
 Ctrl Shift +|Increase writing delay by 100μs
 Ctrl Shift -|Decrease writing delay by 100μs
+0|Set delay to 0μs
 
 ### **Misc**
 KEY | ACTION
@@ -59,6 +62,8 @@ Down_Arrow|Cycle through modes in reverse direction
 - Mergesort
 - Quicksort
 - Radixsort
+- InsertionSort
+- SelectionSort
 
 ###### TODO
 ###### Add more sorting algorithms
