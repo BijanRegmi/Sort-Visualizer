@@ -2,7 +2,7 @@
 
 // Constructor
 Algorithms::Algorithms(Blocks& b):data(b){
-    def_delays = {10*b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount};
+    def_delays = {10*b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount, 450000/data.amount};
     setalg(0);
     working = false;
     sorted = true;
@@ -71,6 +71,11 @@ void Algorithms::algo(){
         case 5:
             Algorithms::radixsort();
             Algorithms::check();
+            break;
+        case 6:
+            Algorithms::insertionsort();
+            Algorithms::check();
+            break;
         }
         working = false;
     }
@@ -234,3 +239,15 @@ int Algorithms::r_max(){
     return data[max_i];
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Algorithms::insertionsort(){
+    for (int i = 1; i<data.amount; i++){
+        int curr = data[i];
+        int j = i - 1;
+
+        while (j>=0 && data[j] > curr){
+            data(j+1, data[j]);
+            j--;
+        }
+        data(j+1, curr);
+    }
+}

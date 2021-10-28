@@ -28,9 +28,10 @@ private:
     void mergesort();   void m_ms(int left, int right);         void m_merge(int left, int mid, int right);
     void quicksort();   void q_qs(int low, int high);           int q_fix(int low, int high);               public: int _q_pivot_index=-1; private:
     void radixsort();   void r_cs(int place);                         int r_max();
+    void insertionsort();
 
     // Algorithm list
-    const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort", "Radixsort"};
+    const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort", "Radixsort", "InsertionSort"};
 public:
     // Constructor
     Algorithms(Blocks& data_array);
