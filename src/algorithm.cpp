@@ -2,7 +2,8 @@
 
 // Constructor
 Algorithms::Algorithms(Blocks& b):data(b){
-    selectedAlg = 0;
+    def_delays = {data.sound.get_c_dur(), 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount};
+    setalg(0);
     working = false;
     sorted = true;
     algcount = alglist.size();
@@ -30,6 +31,7 @@ void Algorithms::setalg(int s){
         selectedAlg = s;
     data.reset_head();
     data.reset_counters();
+    data.setdelay(def_delays[selectedAlg]);
 }
 
 // Data Extractors
@@ -78,13 +80,17 @@ void Algorithms::algo(){
 void Algorithms::check(){
     selectedAlg = 0;
     for (data.head.c = 0; data.head.c < data.amount-1; data.head.c++){
-        if (data.items[data.head.c] > data.items[data.head.c+1]){
+        float val = data.items[data.head.c];
+        if (val > data.items[data.head.c+1]){
             std::cout << "ERROR at " << data.head.c << std::endl;
             break;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        std::cout << "Val: " << val << " Amount: " << data.max_val << " ";
+        data.sound.play(2, 0.5+(0.5*val)/data.max_val);
+        std::this_thread::sleep_for(std::chrono::microseconds(def_delays[0]));
     }
     sorted = (data.amount-1 == data.head.c) ? true : false;
+    (sorted)? data.sound.play(3, 1) : data.sound.play(4, 1);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::shuffle(){

@@ -1,10 +1,9 @@
 #include "blocks.h"
 
 // Constructors
-Blocks::Blocks(){}
-
-Blocks::Blocks(int a, int m){
+Blocks::Blocks(int a, int m, sound_effect& s):sound(s){
     amount = a;
+    max_val = m;
 
     setdelay(10);
     reset_counters();
@@ -56,7 +55,7 @@ void Blocks::reset_head(){
 }
 
 void Blocks::setdelay(int d){
-    if (d > 0){
+    if (d >= 0){
         r_delay = d;
         w_delay = d;
     } else if (d == -1)                     // +
@@ -85,8 +84,10 @@ float Blocks::operator[](int i){                                        // Read
     }
     head.r = i;                                                         // Update reading head
     counter.r++;                                                        // Update read counter
+    float val = items[i];
+    sound.play(0, 0.2+0.8*val/max_val);                                 // Play reading sound   |   Mapping val to [0.2, 1]
     std::this_thread::sleep_for(std::chrono::microseconds(r_delay));    // Pause for read delay
-    return items[i];
+    return val;
 }
 
 void Blocks::operator()(int dest, int val){                             // Write
@@ -96,6 +97,7 @@ void Blocks::operator()(int dest, int val){                             // Write
     }
     head.w = dest;                                                      // Update writing head
     counter.w++;                                                        // Update write counter
+    sound.play(1, 1+val/max_val);                                       // Play writing sound   |   Mapping val to [1, 2]
     std::this_thread::sleep_for(std::chrono::microseconds(w_delay));    // Pause for write delay
     items[dest] = val;
 }

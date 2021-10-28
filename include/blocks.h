@@ -6,9 +6,12 @@
 #include <vector>
 #include <iostream>
 
+#include "sound_effect.h"
+
 class Blocks{
 public:
     int amount;                 // Number of items to be sorted
+    int max_val;
     int r_delay;                // delay in microseconds
     int w_delay;                // delay in microseconds
 
@@ -29,9 +32,10 @@ public:
     
     std::vector<int> items;         // Array of items
     
+    sound_effect& sound;            // Speaker
+    
     // Constructors
-    Blocks();
-    Blocks(int amount, int max_val);
+    Blocks(int amount, int max_val, sound_effect& sound_obj);
 
     // Data utils
     int cmp(int left, int right);
