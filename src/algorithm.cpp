@@ -86,12 +86,12 @@ void Algorithms::check(){
             std::cout << "ERROR at " << data.head.c << std::endl;
             break;
         }
-        std::cout << "Val: " << val << " Amount: " << data.max_val << " ";
         data.sound.play(2, 0.5+(0.5*val)/data.max_val);
         std::this_thread::sleep_for(std::chrono::microseconds(def_delays[0]));
     }
     sorted = (data.amount-1 == data.head.c) ? true : false;
     if (sorted){
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
         data.sound.play(3, 1);
         data.head.c = -2;           // Denotes that checking has been completed and the array is completely sorted
     } else 
