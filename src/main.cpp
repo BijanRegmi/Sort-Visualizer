@@ -41,7 +41,10 @@ int main(){
                         alg.setalg(0);
                         break;
                     case sf::Keyboard::S:
-                        alg.setalg(1);
+                        if (ev.key.shift)
+                            alg.setalg(7);
+                        else
+                            alg.setalg(1);
                         break;
 
                     case sf::Keyboard::B:

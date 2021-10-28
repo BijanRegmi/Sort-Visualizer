@@ -2,7 +2,7 @@
 
 // Constructor
 Algorithms::Algorithms(Blocks& b):data(b){
-    def_delays = {b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount, 450000/data.amount};
+    def_delays = {b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount, 450000/data.amount, 8000/data.amount};
     setalg(0);
     working = false;
     sorted = true;
@@ -74,6 +74,10 @@ void Algorithms::algo(){
             break;
         case 6:
             Algorithms::insertionsort();
+            Algorithms::check();
+            break;
+        case 7:
+            Algorithms::selectionsort();
             Algorithms::check();
             break;
         }
@@ -251,3 +255,18 @@ void Algorithms::insertionsort(){
         data(j+1, curr);
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Algorithms::selectionsort(){
+    int min_val_index = 0;
+    for (int i=0; i<data.amount-1; ++i){
+        min_val_index = i;
+
+        // Finding the minimum value index
+        for (int j=i+1; j<data.amount; ++j)
+            if (data.cmp(j, min_val_index) == -1)
+                min_val_index = j;
+        
+        if (min_val_index != i) data.b_swap(i, min_val_index);
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
