@@ -5,13 +5,16 @@
 #include "sound_effect.h"
 
 int main(){
-    int WIDTH = 1000;
-    int HEIGHT = 600;
-    int FPS = 60;
-    int DATA_SIZE = 100;
-    int BAR_H = 100;
+    sf::VideoMode def = sf::VideoMode::getDesktopMode();
+    const int FPS = 60;
+    const int WIDTH = def.width;
+    const int HEIGHT = def.height;
+    const int BAR_H = 0.05*HEIGHT;
+    const int DATA_SIZE = 0.1*WIDTH;
 
-    sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SORT");
+    std::cout << "Def width: " << WIDTH << " Def height: " << HEIGHT << " Bar height: " << BAR_H << std::endl;
+
+    sf::RenderWindow win(def, "SORT", sf::Style::Fullscreen);
     win.setFramerateLimit(FPS);
     sf::Event ev;
     
@@ -19,6 +22,7 @@ int main(){
     Blocks data(DATA_SIZE, HEIGHT-BAR_H, s_effect);
     Algorithms alg(data);
     Viewer vie(WIDTH, HEIGHT-BAR_H, data, alg);
+    vie.setPosition(0, 0);
     Bar bar(WIDTH, BAR_H, &data, &alg);
     bar.setPosition(0, HEIGHT-BAR_H);
 

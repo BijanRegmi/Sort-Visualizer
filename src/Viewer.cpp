@@ -4,7 +4,7 @@
 Viewer::Viewer(int w, int h, Blocks& b, Algorithms& a):blk(b), alg(a){
     width = w;
     height = h;
-    r_dx = width/blk.amount;
+    r_dx = (float)width/blk.amount;
 
     // Initialize $(blk.amount) number of rectangles
     rects = std::vector<sf::RectangleShape>(blk.amount);

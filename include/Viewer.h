@@ -13,7 +13,7 @@ private:
 
     std::vector<sf::RectangleShape> rects;  // Rectangles representing the sorting data
 
-    int width, height, r_dx;                // Width and height of the sprite and width of individual rectangle block
+    int width, height; float r_dx;          // Width and height of the sprite and width of individual rectangle block
 
     Blocks& blk;                            // Reference variable to the blocks
     Algorithms& alg;                        // Reference variable to the algorithm object
