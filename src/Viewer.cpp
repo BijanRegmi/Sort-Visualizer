@@ -63,6 +63,7 @@ void Viewer::colorizer(int i){
                 rects[i].setFillColor(sf::Color::White);        // White none
         case 3:                                                                         // Mergesort
         case 5:                                                                         // Radixsort
+        case 6:                                                                         // Insertion sort
             if (i == blk.head.r)
                 rects[i].setFillColor(sf::Color::Red);          // Red reading head
             else if (i == blk.head.w)
