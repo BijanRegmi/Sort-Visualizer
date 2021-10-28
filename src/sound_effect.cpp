@@ -29,7 +29,6 @@ void sound_effect::play(int task, float pitch){
         break;
     case 2:
         check.setPitch(pitch);
-        std::cout << "Pitch: " << pitch << std::endl;
         check.play();
         break;
     case 3:
