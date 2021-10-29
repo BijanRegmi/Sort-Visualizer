@@ -12,7 +12,7 @@ int main(){
     const int BAR_H = 0.05*HEIGHT;
     const int DATA_SIZE = 1*WIDTH;
 
-    sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SORT", sf::Style::Default);
+    sf::RenderWindow win(def, "SORT", sf::Style::Fullscreen);
     win.setFramerateLimit(FPS);
     sf::Event ev;
     
