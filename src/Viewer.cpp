@@ -23,62 +23,33 @@ void Viewer::render(){
         rects[i].setSize(sf::Vector2f(r_dx, h));
         rects[i].setPosition(i*r_dx, height-h);
 
-        colorizer(i);
+        updatewatchvalues();
+        colorizer();
 
         texture.draw(rects[i]);
     }
     texture.display();
 }
 
-// Colorizer
-void Viewer::colorizer(int i){
-    
+void Viewer::add_to_track(int& w, int s){
+    watchlist.push_back( std::pair<int&, int>(w, s) );
+    watch_values.push_back(std::list<int>(s, -1));
+}
 
-    if (alg.working){
-        switch (alg.selectedAlg)
-        {
-        case 0:                                                                         // Check
-            if (i <= blk.head.c+3)
-                rects[i].setFillColor(sf::Color::Green);        // Green for those rects which are in sorted order
-            else
-                rects[i].setFillColor(sf::Color::White);
-            break;
-        case 1:                                                                         // Shuffle
-            rects[i].setFillColor(sf::Color::White);            // All white
-            break;
-        case 2:                                                                         // Bubblesort   |   Coloring reading head only
-            if (i == blk.head.r)
-                rects[i].setFillColor(sf::Color::Red);          // Red reading head
-            else
-                rects[i].setFillColor(sf::Color::White);
-            break;
-        case 4:                                                                         // Quicksort
-            if (i == alg._q_pivot_index)
-                rects[i].setFillColor(sf::Color(169, 0, 255));  // Purple for the pivot element
-            else if (i == blk.head.r)
-                rects[i].setFillColor(sf::Color::Red);          // Red reading head
-            else if (i == blk.head.w)
-                rects[i].setFillColor(sf::Color::Blue);         // Blue writing head
-            else
-                rects[i].setFillColor(sf::Color::White);        // White none
-        case 3:                                                                         // Mergesort
-        case 5:                                                                         // Radixsort
-        case 6:                                                                         // Insertion sort
-        case 7:                                                                         // Selection sort
-            if (i == blk.head.r)
-                rects[i].setFillColor(sf::Color::Red);          // Red reading head
-            else if (i == blk.head.w)
-                rects[i].setFillColor(sf::Color::Blue);         // Blue writing head
-            else
-                rects[i].setFillColor(sf::Color::White);        // White none
-            break;
-        default:
-            break;
-        }
-    } else {
-        if (blk.head.c == -2)                                                           // If the array is sorted and selected alg is still {check}
-            rects[i].setFillColor(sf::Color::Green);            // All green
-        else 
-            rects[i].setFillColor(sf::Color::White);            // If no work is going on then white
+void Viewer::updatewatchvalues(){
+    int n = watchlist.size();
+
+    for (int i=0; i<n; i++){
+        watch_values[i].push_back(watchlist[i].first);
+        watch_values[i].pop_front();
     }
+}
+
+void Viewer::clear_track_list(){
+    watchlist.clear();
+}
+
+// Colorizer
+void Viewer::colorizer(){
+    
 }

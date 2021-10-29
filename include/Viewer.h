@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <list>
 
 #include "blocks.h"
 #include "algorithm.h"
@@ -15,10 +16,13 @@ private:
 
     int width, height; float r_dx;          // Width and height of the sprite and width of individual rectangle block
 
+    std::vector< std::pair<int&, int> > watchlist;
+    std::vector< std::list<int> > watch_values;
+
     Blocks& blk;                            // Reference variable to the blocks
     Algorithms& alg;                        // Reference variable to the algorithm object
 
-    void colorizer(int index);              // Color the rects based on its index and selected alg
+    void colorizer();              // Color the rects based on its index and selected alg
 
 public:
     // Constructors
@@ -26,6 +30,10 @@ public:
 
     // Renderer
     void render();
+
+    void add_to_track(int& to_watch, int hist_size);
+    void updatewatchvalues();
+    void clear_track_list();
 };
 
 #endif // VIEWER_H
