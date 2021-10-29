@@ -12,14 +12,14 @@ int main(){
     const int BAR_H = 0.05*HEIGHT;
     const int DATA_SIZE = 1*WIDTH;
 
-    sf::RenderWindow win(def, "SORT", sf::Style::Fullscreen);
+    sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SORT", sf::Style::Default);
     win.setFramerateLimit(FPS);
     sf::Event ev;
     
     sound_effect s_effect;
     Blocks data(DATA_SIZE, HEIGHT-BAR_H, s_effect);
-    Algorithms alg(data);
-    Viewer vie(WIDTH, HEIGHT-BAR_H, data, alg);
+    Viewer vie(WIDTH, HEIGHT-BAR_H, data);
+    Algorithms alg(data, vie);
     vie.setPosition(0, 0);
     Bar bar(WIDTH, BAR_H, &data, &alg);
     bar.setPosition(0, HEIGHT-BAR_H);

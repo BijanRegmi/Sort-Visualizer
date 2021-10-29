@@ -2,6 +2,7 @@
 #define ALGORITHM_H
 
 #include "blocks.h"
+#include "Viewer.h"
 
 #include <algorithm>
 #include <vector>
@@ -12,6 +13,7 @@
 class Algorithms{
 private:
     Blocks& data;                   // Reference to array of data to sort
+    Viewer& view;
 
     std::thread sortingThread;      // Thread for sorting the blocks
 
@@ -35,7 +37,7 @@ private:
     const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort", "Radixsort", "InsertionSort", "SelectionSort"};
 public:
     // Constructor
-    Algorithms(Blocks& data_array);
+    Algorithms(Blocks& data_array, Viewer& view);
 
     // Controllers
     void start();

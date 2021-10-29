@@ -6,7 +6,6 @@
 #include <list>
 
 #include "blocks.h"
-#include "algorithm.h"
 
 class Viewer: public sf::Sprite{
 private:
@@ -16,24 +15,25 @@ private:
 
     int width, height; float r_dx;          // Width and height of the sprite and width of individual rectangle block
 
-    std::vector< std::pair<int&, int> > watchlist;
-    std::vector< std::list<int> > watch_values;
+    std::vector< std::pair<int&, uint32_t> > tracklist; // Pair < address to check value for, uint32 color>
+    std::vector< std::list<int> > trackvalues;          // List < value of the data that is being tracked >
 
     Blocks& blk;                            // Reference variable to the blocks
-    Algorithms& alg;                        // Reference variable to the algorithm object
 
-    void colorizer();              // Color the rects based on its index and selected alg
+    void colorizer(int i);                  // Color the rects based on its index and selected alg
+
+    void updatetrackingvalues();            // Update the values that is to be tracked
 
 public:
     // Constructors
-    Viewer(int, int, Blocks&, Algorithms&);
+    Viewer(int, int, Blocks&);
 
     // Renderer
     void render();
 
-    void add_to_track(int& to_watch, int hist_size);
-    void updatewatchvalues();
-    void clear_track_list();
+    // Trackers
+    void add_to_track(int& to_watch, int hist_size, uint32_t color);
+    void cleartracking();
 };
 
 #endif // VIEWER_H
