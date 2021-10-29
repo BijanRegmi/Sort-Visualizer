@@ -34,8 +34,8 @@ void Viewer::render(){
     texture.display();
 }
 
-void Viewer::add_to_track(int& w, int s, uint32_t c){
-    tracklist.push_back(std::pair<int&, uint32_t>(w, c));
+void Viewer::add_to_track(volatile int* w, int s, uint32_t c){
+    tracklist.push_back(std::pair<volatile int*, uint32_t>(w, c));
     trackvalues.push_back(std::vector<int>(s, -1));
     checkvalues();
 }
@@ -57,8 +57,8 @@ void Viewer::updatetrackvalues(){
     int n = tracklist.size();
 
     for (int i=0; i<n; i++){
-        int val = tracklist[i].first;       // Current value
-        int pval = trackvalues[i].back();   // Previous value
+        int val = *(tracklist[i].first);       // Current value
+        int pval = *(trackvalues[i].end());   // Previous value
         if (pval != val){                   // Update only if value has changed
             int n2 = trackvalues[i].size();
             for (int j = n2-1; j>0; j--){
@@ -80,8 +80,9 @@ void Viewer::colorizer(int index){
     int a = blk.amount;
 
     for (int i=0; i<n; i++){
-        for (auto itr=trackvalues[i].begin(), e=trackvalues[i].end(); itr!=e; itr++){
-            int x = (*itr);
+        int n2 = trackvalues[i].size();
+        for (int j=0; j<n2; j++){
+            int x = trackvalues[i][j];
             if ( x < 0 || x > a) continue;
             else if(x == index){
                 rects[index].setFillColor(sf::Color(tracklist[i].second));

@@ -90,8 +90,8 @@ void Algorithms::check(){
 
     //int delay = data.amount * 50;
 
-    int c = -1;
-    view.add_to_track(c, 1, 0x00ff00ff);
+    volatile int c = -1;
+    view.add_to_track(&c, 1, 0x00ff00ff);
 
     for (c = 0; c < n-1; c++){
         float val = data.items[c];
@@ -117,8 +117,8 @@ void Algorithms::shuffle(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::bubblesort(){
     int i = -1;
-    int j = -1;
-    view.add_to_track(j, 3, 0xff0000ff);
+    volatile int j = -1;
+    view.add_to_track(&j, 3, 0xff0000ff);
     //std::cout << "Sent data are: j, 3, 0xff0000ff " << 0xff0000ff;
 
     int n = data.amount;
@@ -138,7 +138,7 @@ void Algorithms::bubblesort(){
 void Algorithms::mergesort(){
     m_ms(0, data.amount-1);
 }
-void Algorithms::m_ms(int left, int right){
+void Algorithms::m_ms(volatile int left, volatile int right){
     if (left>=right) return;
     int mid = (left + right)/2;
 
@@ -147,12 +147,12 @@ void Algorithms::m_ms(int left, int right){
 
     m_merge(left, mid, right);
 }
-void Algorithms::m_merge(int left, int mid, int right){
+void Algorithms::m_merge(volatile int left, int mid, volatile int right){
     int left_n = mid - left + 1;
     int right_n = right - mid;      // right - (mid + 1) + 1
     
-    view.add_to_track(left, 1, 0x00ff00ff);
-    view.add_to_track(right, 1, 0x0000ffff);
+    view.add_to_track(&left, 1, 0x00ff00ff);
+    view.add_to_track(&right, 1, 0x0000ffff);
 
     // Temporary arrays
     int left_arr[left_n];
@@ -165,9 +165,9 @@ void Algorithms::m_merge(int left, int mid, int right){
     // Pointing ints
     int i = 0;
     int j = 0;
-    int k = left;
+    volatile int k = left;
 
-    view.add_to_track(k, 1, 0xff0000ff);
+    view.add_to_track(&k, 1, 0xff0000ff);
 
     // Writing to data
     while (i<left_n && j<right_n)

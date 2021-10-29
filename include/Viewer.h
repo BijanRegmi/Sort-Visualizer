@@ -15,7 +15,7 @@ private:
 
     int width, height; float r_dx;          // Width and height of the sprite and width of individual rectangle block
 
-    std::vector< std::pair<int&, uint32_t> > tracklist; // Pair < address to check value for, uint32 color>
+    std::vector< std::pair<volatile int*, uint32_t> > tracklist; // Pair < address to check value for, uint32 color>
     std::vector< std::vector<int> > trackvalues;          // List < value of the data that is being tracked >
 
     Blocks& blk;                            // Reference variable to the blocks
@@ -33,7 +33,7 @@ public:
     void render();
 
     // Trackers
-    void add_to_track(int& to_watch, int hist_size, uint32_t color);
+    void add_to_track(volatile int* to_watch, int hist_size, uint32_t color);
     void cleartracking();
 };
 
