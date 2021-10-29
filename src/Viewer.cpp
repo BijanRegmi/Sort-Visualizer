@@ -69,4 +69,5 @@ void Viewer::colorizer(int index){
             }
         }
     }
+    rects[index].setFillColor(sf::Color::White);
 }
