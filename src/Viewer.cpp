@@ -26,7 +26,7 @@ void Viewer::render(){
         rects[i].setSize(sf::Vector2f(r_dx, h));
         rects[i].setPosition(i*r_dx, height-h);
 
-        updatetrackvalues();
+        //updatetrackvalues();
         colorizer(i);
 
         texture.draw(rects[i]);
@@ -36,7 +36,7 @@ void Viewer::render(){
 
 void Viewer::add_to_track(volatile int* w, int s, uint32_t c){
     tracklist.push_back(std::pair<volatile int*, uint32_t>(w, c));
-    trackvalues.push_back(std::vector<int>(s, -1));
+    //trackvalues.push_back(std::deque<int>(s, -1));
     checkvalues();
 }
 
@@ -46,31 +46,28 @@ void Viewer::checkvalues(){
     for (int i=0; i<n; i++){
         std::cout << "tracklist[" << i << "]->first: " << tracklist[i].first << std::endl
                   << "tracklist[" << i << "]->second: " << tracklist[i].second << std::endl;
-        int n2 = trackvalues[i].size();
+        /*int n2 = trackvalues[i].size();
         for (int j = 0; j<n2; j++){
                 std::cout << "trackvalues[" << i << "][" << j << "]: " << trackvalues[i][j] << std::endl << std::endl;
-        }
+        }*/
     }
 }
 
 void Viewer::updatetrackvalues(){
     int n = tracklist.size();
 
-    for (int i=0; i<n; i++){
+    /*for (int i=0; i<n; i++){
         int val = *(tracklist[i].first);       // Current value
-        int pval = *(trackvalues[i].end());   // Previous value
+        int pval = trackvalues[i].back();   // Previous value
         if (pval != val){                   // Update only if value has changed
-            int n2 = trackvalues[i].size();
-            for (int j = n2-1; j>0; j--){
-                trackvalues[i][j-1] = trackvalues[i][j];
-            }
-            trackvalues[i][n2-1] = val;
+            trackvalues[i].pop_front();
+            trackvalues[i].push_back(val);
         }
-    }
+    }*/
 }
 
 void Viewer::cleartracking(){
-    trackvalues.clear();
+    //trackvalues.clear();
     tracklist.clear();
 }
 
@@ -80,7 +77,7 @@ void Viewer::colorizer(int index){
     int a = blk.amount;
 
     for (int i=0; i<n; i++){
-        int n2 = trackvalues[i].size();
+        /*int n2 = trackvalues[i].size();
         for (int j=0; j<n2; j++){
             int x = trackvalues[i][j];
             if ( x < 0 || x > a) continue;
@@ -88,6 +85,10 @@ void Viewer::colorizer(int index){
                 rects[index].setFillColor(sf::Color(tracklist[i].second));
                 return;
             }
+        }*/
+        if (*tracklist[i].first == index){
+            rects[index].setFillColor(sf::Color(tracklist[i].second));
+            return;
         }
     }
     rects[index].setFillColor(sf::Color::White);
