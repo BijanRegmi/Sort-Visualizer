@@ -22,7 +22,7 @@ private:
 
     void colorizer(int i);                  // Color the rects based on its index and selected alg
 
-    void updatetrackingvalues();            // Update the values that is to be tracked
+    void updatetrackvalues();               // Update the values that is to be tracked
 
 public:
     // Constructors
