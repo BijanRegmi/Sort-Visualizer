@@ -44,6 +44,9 @@ $(BIN)/%.o: $(SRC)/%.cpp
 run: $(BIN)/$(EXEC)
 	./$(BIN)/$(EXEC)
 
+debug: $(BIN)/$(EXEC)
+	gdb $(BIN)/$(EXEC)
+
 # Clean
 clean:
 	rm -f $(BIN)/*
