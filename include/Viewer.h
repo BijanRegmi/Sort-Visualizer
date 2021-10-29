@@ -3,7 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <deque>
+#include <queue>
+#include<deque>
+#include <tuple>
 
 #include "blocks.h"
 
@@ -16,7 +18,7 @@ private:
     int width, height; float r_dx;          // Width and height of the sprite and width of individual rectangle block
 
     std::vector< std::pair<volatile int*, uint32_t> > tracklist; // Pair < address to check value for, uint32 color>
-    //std::vector< std::deque<int> > trackvalues;          // List < value of the data that is being tracked >
+    std::vector< std::deque<volatile int*> > trackvalues;          // List < value of the data that is being tracked >
 
     Blocks& blk;                            // Reference variable to the blocks
 
