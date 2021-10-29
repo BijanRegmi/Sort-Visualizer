@@ -63,7 +63,8 @@ void Viewer::colorizer(int index){
 
     for (int i=0; i<n; i++){
         for (auto x: trackvalues[i]){
-            if(x == index){
+            if ( x == -1) continue;
+            else if(x == index){
                 rects[index].setFillColor(sf::Color(tracklist[i].second));
                 return;
             }
