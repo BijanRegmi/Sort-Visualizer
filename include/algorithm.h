@@ -18,8 +18,6 @@ private:
     std::thread sortingThread;      // Thread for sorting the blocks
 
     int algcount;                   // Total number of algs in alglist
-
-    std::vector<int> def_delays;    // Default delays for the algs
     
     void algo();                    // Function that keeps running in the thread
 

@@ -20,7 +20,7 @@ Viewer::Viewer(int w, int h, Blocks& b):blk(b){
 // Renderer
 void Viewer::render(){
     texture.clear();
-    for (unsigned int i=0; i<rects.size(); i++){
+    for (int i=0; i<rects.size(); i++){
         float h = blk.items[i];                        //Using items instead of blk[] so that counters aren't updated
 
         rects[i].setSize(sf::Vector2f(r_dx, h));
@@ -35,8 +35,22 @@ void Viewer::render(){
 }
 
 void Viewer::add_to_track(int& w, int s, uint32_t c){
-    tracklist.push_back( std::pair<int&, int>(w, c) );
-    trackvalues.push_back(std::list<int>(s, -1));
+    tracklist.push_back(std::pair<int&, uint32_t>(w, c));
+    trackvalues.push_back(std::vector<int>(s, -1));
+    checkvalues();
+}
+
+void Viewer::checkvalues(){
+    int n = tracklist.size();
+
+    for (int i=0; i<n; i++){
+        std::cout << "tracklist[" << i << "]->first: " << tracklist[i].first << std::endl
+                  << "tracklist[" << i << "]->second: " << tracklist[i].second << std::endl;
+        int n2 = trackvalues[i].size();
+        for (int j = 0; j<n2; j++){
+                std::cout << "trackvalues[" << i << "][" << j << "]: " << trackvalues[i][j] << std::endl << std::endl;
+        }
+    }
 }
 
 void Viewer::updatetrackvalues(){
@@ -45,25 +59,30 @@ void Viewer::updatetrackvalues(){
     for (int i=0; i<n; i++){
         int val = tracklist[i].first;       // Current value
         int pval = trackvalues[i].back();   // Previous value
-        if (pval != val){                   // Don't update if value hasn't changed
-            trackvalues[i].push_back(val);
-            trackvalues[i].pop_front();
+        if (pval != val){                   // Update only if value has changed
+            int n2 = trackvalues[i].size();
+            for (int j = n2-1; j>0; j--){
+                trackvalues[i][j-1] = trackvalues[i][j];
+            }
+            trackvalues[i][n2-1] = val;
         }
     }
 }
 
 void Viewer::cleartracking(){
-    tracklist.clear();
     trackvalues.clear();
+    tracklist.clear();
 }
 
 // Colorizer
 void Viewer::colorizer(int index){
     int n = tracklist.size();
+    int a = blk.amount;
 
     for (int i=0; i<n; i++){
-        for (auto x: trackvalues[i]){
-            if ( x == -1) continue;
+        for (auto itr=trackvalues[i].begin(), e=trackvalues[i].end(); itr!=e; itr++){
+            int x = (*itr);
+            if ( x < 0 || x > a) continue;
             else if(x == index){
                 rects[index].setFillColor(sf::Color(tracklist[i].second));
                 return;

@@ -2,7 +2,6 @@
 
 // Constructor
 Algorithms::Algorithms(Blocks& b, Viewer& v):data(b), view(v){
-    def_delays = {b.amount, 0, 30000/data.amount, 400000/data.amount, 450000/data.amount, 500000/data.amount, 450000/data.amount, 8000/data.amount};
     setalg(0);
     working = false;
     sorted = true;
@@ -30,7 +29,6 @@ void Algorithms::setalg(int s){
     else
         selectedAlg = s;
     data.reset_counters();
-    data.setdelay(def_delays[selectedAlg]);
 }
 
 // Data Extractors
@@ -49,36 +47,37 @@ void Algorithms::algo(){
         data.reset_counters();
         switch(selectedAlg){
         case 0:
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 1:
             Algorithms::shuffle();
             break;
         case 2:
             Algorithms::bubblesort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 3:
             Algorithms::mergesort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 4:
             Algorithms::quicksort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 5:
             Algorithms::radixsort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 6:
             Algorithms::insertionsort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         case 7:
             Algorithms::selectionsort();
-            Algorithms::check();
+            //Algorithms::check();
             break;
         }
+        view.cleartracking();
         working = false;
     }
 }
@@ -86,18 +85,24 @@ void Algorithms::algo(){
 // Sorting Algorithm Implementations
 void Algorithms::check(){
     selectedAlg = 0;
-    data.setdelay(def_delays[selectedAlg]);
-    int c;
-    for (c = 0; c < data.amount-1; c++){
+    
+    int n = data.amount;
+
+    //int delay = data.amount * 50;
+
+    int c = -1;
+    view.add_to_track(c, 1, 0x00ff00ff);
+
+    for (c = 0; c < n-1; c++){
         float val = data.items[c];
         if (val > data.items[c+1]){
             std::cout << "ERROR at " << c << std::endl;
             break;
         }
         data.sound.play(2, 0.5+(0.5*val)/data.max_val);
-        std::this_thread::sleep_for(std::chrono::microseconds(def_delays[0]));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
-    sorted = (data.amount-1 == c) ? true : false;
+    sorted = (n-1 == c) ? true : false;
     if (sorted){
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         data.sound.play(3, 1);
@@ -113,16 +118,21 @@ void Algorithms::shuffle(){
 void Algorithms::bubblesort(){
     int i = -1;
     int j = -1;
-    view.add_to_track(j, 2, 0x00ff00ff);
-    for (i = 0; i < data.amount; i += 1){
-        for (j = 0; j < data.amount-i-1; j += 1){
+    view.add_to_track(j, 3, 0xff0000ff);
+    //std::cout << "Sent data are: j, 3, 0xff0000ff " << 0xff0000ff;
 
-            if (data.cmp(j, j+1) == 1){
+    int n = data.amount;
+    int cnt = 0;
+    // Core
+    for (i = 0; i < n; i++){
+        for (j = 0; j < n-i-1; j++){
+            if (data.cmp(j, j+1) == 1)
                 data.b_swap(j, j+1);
-            }
+            std::cout << "Iterator " << cnt << ": " << std::endl;
+            view.checkvalues();
+            cnt++;
         }
     }
-    view.cleartracking();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::mergesort(){
@@ -141,6 +151,9 @@ void Algorithms::m_merge(int left, int mid, int right){
     int left_n = mid - left + 1;
     int right_n = right - mid;      // right - (mid + 1) + 1
     
+    view.add_to_track(left, 1, 0x00ff00ff);
+    view.add_to_track(right, 1, 0x0000ffff);
+
     // Temporary arrays
     int left_arr[left_n];
     int right_arr[right_n];
@@ -152,29 +165,35 @@ void Algorithms::m_merge(int left, int mid, int right){
     // Pointing ints
     int i = 0;
     int j = 0;
-    int k = 0;
+    int k = left;
+
+    view.add_to_track(k, 1, 0xff0000ff);
 
     // Writing to data
     while (i<left_n && j<right_n)
     {
         if (left_arr[i] <= right_arr[j]){
-            data(left+k, left_arr[i]);
+            data(k, left_arr[i]);
             i++;
         } else {
-            data(left+k, right_arr[j]);
+            data(k, right_arr[j]);
             j++; 
         }
+        view.checkvalues();
         k++;
     }
     while (i<left_n){
-        data(left+k, left_arr[i]);
+        data(k, left_arr[i]);
         i++; k++;
+        view.checkvalues();
     }
     while (j<right_n){
-        data(left+k, right_arr[j]);
+        data(k, right_arr[j]);
         j++; k++;
+        view.checkvalues();
     }
     
+    view.cleartracking();    
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
