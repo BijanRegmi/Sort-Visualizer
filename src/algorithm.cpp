@@ -29,7 +29,6 @@ void Algorithms::setalg(int s){
         selectedAlg = (selectedAlg + algcount - 1)%algcount;
     else
         selectedAlg = s;
-    data.reset_head();
     data.reset_counters();
     data.setdelay(def_delays[selectedAlg]);
 }
@@ -48,7 +47,6 @@ void Algorithms::algo(){
         }
 
         data.reset_counters();
-        data.reset_head();
         switch(selectedAlg){
         case 0:
             Algorithms::check();
@@ -89,20 +87,20 @@ void Algorithms::algo(){
 void Algorithms::check(){
     selectedAlg = 0;
     data.setdelay(def_delays[selectedAlg]);
-    for (data.head.c = 0; data.head.c < data.amount-1; data.head.c++){
-        float val = data.items[data.head.c];
-        if (val > data.items[data.head.c+1]){
-            std::cout << "ERROR at " << data.head.c << std::endl;
+    int c;
+    for (c = 0; c < data.amount-1; c++){
+        float val = data.items[c];
+        if (val > data.items[c+1]){
+            std::cout << "ERROR at " << c << std::endl;
             break;
         }
         data.sound.play(2, 0.5+(0.5*val)/data.max_val);
         std::this_thread::sleep_for(std::chrono::microseconds(def_delays[0]));
     }
-    sorted = (data.amount-1 == data.head.c) ? true : false;
+    sorted = (data.amount-1 == c) ? true : false;
     if (sorted){
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         data.sound.play(3, 1);
-        data.head.c = -2;           // Denotes that checking has been completed and the array is completely sorted
     } else 
         data.sound.play(4, 1);
 }

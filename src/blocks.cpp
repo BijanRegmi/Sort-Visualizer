@@ -7,7 +7,6 @@ Blocks::Blocks(int a, int m, sound_effect& s):sound(s){
 
     setdelay(10);
     reset_counters();
-    reset_head();
 
     items.clear();
     for (int i=1; i<=amount; i++){
@@ -48,12 +47,6 @@ void Blocks::reset_counters(){
     counter.s = 0;
 }
 
-void Blocks::reset_head(){
-    head.c = -1;
-    head.r = -1;
-    head.w = -1;
-}
-
 void Blocks::setdelay(int d){
     if (d >= 0){
         r_delay = d;
@@ -82,7 +75,6 @@ float Blocks::operator[](int i){                                        // Read
         std::cout << "Out of bound value " << i << " selected!";
         return 0;
     }
-    head.r = i;                                                         // Update reading head
     counter.r++;                                                        // Update read counter
     float val = items[i];
     sound.play(0, 0.2+0.8*val/max_val);                                 // Play reading sound   |   Mapping val to [0.2, 1]
@@ -95,7 +87,6 @@ void Blocks::operator()(int dest, int val){                             // Write
         std::cout << "Out of bound value " << dest << " selected!";
         return;
     }
-    head.w = dest;                                                      // Update writing head
     counter.w++;                                                        // Update write counter
     sound.play(1, 1+val/max_val);                                       // Play writing sound   |   Mapping val to [1, 2]
     std::this_thread::sleep_for(std::chrono::microseconds(w_delay));    // Pause for write delay
