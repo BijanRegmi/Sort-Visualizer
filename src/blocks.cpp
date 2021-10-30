@@ -81,7 +81,7 @@ float Blocks::operator[](int i){                                        // Read
     }
     counter.r++;                                                        // Update read counter
     float val = items[i];
-    sound.play(0, 0.2+0.8*val/max_val);                                 // Play reading sound   |   Mapping val to [0.2, 1]
+    sound.play(0, 0.5+1*val/max_val);                                   // Play reading sound   |   Mapping val to [0.5, 1.5]
     std::this_thread::sleep_for(std::chrono::microseconds(r_delay));    // Pause for read delay
     return val;
 }
@@ -92,7 +92,7 @@ void Blocks::operator()(int dest, int val){                             // Write
         return;
     }
     counter.w++;                                                        // Update write counter
-    //sound.play(1, 1+val/max_val);                                       // Play writing sound   |   Mapping val to [1, 2]
+    sound.play(0.05, 0.5+0.45*val/max_val);                                       // Play writing sound   |   Mapping val to [1, 2]
     std::this_thread::sleep_for(std::chrono::microseconds(w_delay));    // Pause for write delay
     items[dest] = val;
 }
