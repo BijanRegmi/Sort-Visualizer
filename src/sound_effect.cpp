@@ -3,7 +3,7 @@
 
 sound_effect::sound_effect(){
     if (
-    read_buffer.loadFromFile("Sound_Effects/read.wav") && 
+    read_buffer.loadFromFile("Sound_Effects/1.wav") && 
     write_buffer.loadFromFile("Sound_Effects/write.wav") &&
     check_buffer.loadFromFile("Sound_Effects/check.wav") &&
     sorted_buffer.loadFromFile("Sound_Effects/hoorah.wav") &&
@@ -42,6 +42,8 @@ void sound_effect::play(int task, float pitch){
     }
 }
 
-int sound_effect::get_c_dur(){
-    return check_buffer.getDuration().asMicroseconds();
+void sound_effect::stop(){
+    read.stop();
+    write.stop();
 }
+

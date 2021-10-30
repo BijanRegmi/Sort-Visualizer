@@ -33,6 +33,7 @@ public:
     // Data utils
     int cmp(int left, int right);
     void b_swap(int a, int b);
+    void stopsound();
 
     // Setters
     void reset_counters();
