@@ -10,7 +10,7 @@ int main(){
     const int WIDTH = def.width;
     const int HEIGHT = def.height;
     const int BAR_H = 0.05*HEIGHT;
-    const int DATA_SIZE = 1*WIDTH;
+    const int DATA_SIZE = 200;
 
     sf::RenderWindow win(def, "SORT", sf::Style::Fullscreen);
     win.setFramerateLimit(FPS);
@@ -18,8 +18,8 @@ int main(){
     
     sound_effect s_effect;
     Blocks data(DATA_SIZE, HEIGHT-BAR_H, s_effect);
-    Algorithms alg(data);
-    Viewer vie(WIDTH, HEIGHT-BAR_H, data, alg);
+    Viewer vie(WIDTH, HEIGHT-BAR_H, data);
+    Algorithms alg(data, vie);
     vie.setPosition(0, 0);
     Bar bar(WIDTH, BAR_H, &data, &alg);
     bar.setPosition(0, HEIGHT-BAR_H);

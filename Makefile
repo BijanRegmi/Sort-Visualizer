@@ -2,7 +2,7 @@
 CC = g++
 
 # Compiler flags
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 
 # Executable
 EXEC = sorts
@@ -38,13 +38,17 @@ $(BIN)/$(EXEC): $(OBJ_FILES)
 $(BIN)/%.o: $(SRC)/%.cpp
 	$(CC) -c $^ $(CFLAGS) -o $@ -I $(INC) -L $(LIBS)
 
-.PHONY: run clean
+.PHONY: run clean debug build
 
 # Build & Run executable
 run: $(BIN)/$(EXEC)
 	./$(BIN)/$(EXEC)
 
-# Clean
+build: $(BIN)/$(EXEC)
+
+debug: $(BIN)/$(EXEC)
+	gdb $(BIN)/$(EXEC)
+
 clean:
 	rm -f $(BIN)/*
 
