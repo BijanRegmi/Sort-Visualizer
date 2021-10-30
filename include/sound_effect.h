@@ -18,7 +18,7 @@ private:
 public:
     sound_effect();
     void play(int task, float pitch);
-    int get_c_dur();
+    void stop();
 };
 
 #endif // SOUND_H

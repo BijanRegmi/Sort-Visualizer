@@ -30,6 +30,10 @@ int Blocks::cmp(int i, int j){
         return 1;
 }
 
+void Blocks::stopsound(){
+    sound.stop();
+}
+
 void Blocks::b_swap(int i, int j){
 
     counter.s++;                                // Update swap counter
@@ -88,7 +92,7 @@ void Blocks::operator()(int dest, int val){                             // Write
         return;
     }
     counter.w++;                                                        // Update write counter
-    sound.play(1, 1+val/max_val);                                       // Play writing sound   |   Mapping val to [1, 2]
+    //sound.play(1, 1+val/max_val);                                       // Play writing sound   |   Mapping val to [1, 2]
     std::this_thread::sleep_for(std::chrono::microseconds(w_delay));    // Pause for write delay
     items[dest] = val;
 }

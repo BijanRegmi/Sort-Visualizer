@@ -91,26 +91,32 @@ void Algorithms::algo(){
             break;
         case 2:
             Algorithms::bubblesort();
+            data.stopsound();
             Algorithms::check();
             break;
         case 3:
             Algorithms::mergesort();
+            data.stopsound();
             Algorithms::check();
             break;
         case 4:
             Algorithms::quicksort();
+            data.stopsound();
             Algorithms::check();
             break;
         case 5:
             Algorithms::radixsort();
+            data.stopsound();
             Algorithms::check();
             break;
         case 6:
             Algorithms::insertionsort();
+            data.stopsound();
             Algorithms::check();
             break;
         case 7:
             Algorithms::selectionsort();
+            data.stopsound();
             Algorithms::check();
             break;
         }
