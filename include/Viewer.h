@@ -34,10 +34,6 @@ public:
 
     // Renderer
     void render();
-
-    // Trackers
-    void add_to_track(volatile int* to_watch, int hist_size, uint32_t color);
-    void cleartracking();
 };
 
 #endif // VIEWER_H

@@ -77,7 +77,6 @@ void Algorithms::algo(){
             //Algorithms::check();
             break;
         }
-        view.cleartracking();
         working = false;
     }
 }
@@ -88,10 +87,7 @@ void Algorithms::check(){
     
     int n = data.amount;
 
-    //int delay = data.amount * 50;
-
-    volatile int c = -1;
-    view.add_to_track(&c, 1, 0x00ff00ff);
+    int c = -1;
 
     for (c = 0; c < n-1; c++){
         float val = data.items[c];
@@ -116,21 +112,10 @@ void Algorithms::shuffle(){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::bubblesort(){
-    int i = -1;
-    volatile int j = -1;
-    view.add_to_track(&j, 3, 0xff0000ff);
-    //std::cout << "Sent data are: j, 3, 0xff0000ff " << 0xff0000ff;
-
-    int n = data.amount;
-    int cnt = 0;
-    // Core
-    for (i = 0; i < n; i++){
-        for (j = 0; j < n-i-1; j++){
+    for (int i = 0, n = data.amount; i != n-1; ++i){
+        for (int j = 0; j < n-i-1; ++j){
             if (data.cmp(j, j+1) == 1)
                 data.b_swap(j, j+1);
-            std::cout << "Iterator " << cnt << ": " << std::endl;
-            view.checkvalues();
-            cnt++;
         }
     }
 }
@@ -138,7 +123,7 @@ void Algorithms::bubblesort(){
 void Algorithms::mergesort(){
     m_ms(0, data.amount-1);
 }
-void Algorithms::m_ms(volatile int left, volatile int right){
+void Algorithms::m_ms(int left, int right){
     if (left>=right) return;
     int mid = (left + right)/2;
 
@@ -147,27 +132,22 @@ void Algorithms::m_ms(volatile int left, volatile int right){
 
     m_merge(left, mid, right);
 }
-void Algorithms::m_merge(volatile int left, int mid, volatile int right){
+void Algorithms::m_merge(int left, int mid, int right){
     int left_n = mid - left + 1;
     int right_n = right - mid;      // right - (mid + 1) + 1
     
-    view.add_to_track(&left, 1, 0x00ff00ff);
-    view.add_to_track(&right, 1, 0x0000ffff);
-
     // Temporary arrays
     int left_arr[left_n];
     int right_arr[right_n];
 
     // Copying arrays
-    for (int i=0; i<left_n; i++) left_arr[i] = data[left+i];
-    for (int i=0; i<right_n; i++) right_arr[i] = data[mid+1+i];
+    for (int i=0; i<left_n; ++i) left_arr[i] = data[left+i];
+    for (int i=0; i<right_n; ++i) right_arr[i] = data[mid+1+i];
 
     // Pointing ints
     int i = 0;
     int j = 0;
-    volatile int k = left;
-
-    view.add_to_track(&k, 1, 0xff0000ff);
+    int k = left;
 
     // Writing to data
     while (i<left_n && j<right_n)
@@ -179,22 +159,16 @@ void Algorithms::m_merge(volatile int left, int mid, volatile int right){
             data(k, right_arr[j]);
             j++; 
         }
-        // view.checkvalues();
         k++;
     }
     while (i<left_n){
         data(k, left_arr[i]);
         i++; k++;
-        // view.checkvalues();
     }
     while (j<right_n){
         data(k, right_arr[j]);
         j++; k++;
-        // view.checkvalues();
     }
-    
-    view.cleartracking();    
-
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::quicksort(){
@@ -210,7 +184,7 @@ void Algorithms::q_qs(int low, int high){
 int Algorithms::q_fix(int low, int high){
     int i = low - 1;
 
-    for (int j = low; j<high; j++){
+    for (int j = low; j<high; ++j){
         if (data.cmp(j, high) == -1){
             i++;
             if (i != j) data.b_swap(i, j);
@@ -232,20 +206,20 @@ void Algorithms::r_cs(int place){
     int count[10] = {0};
 
     // Storing how many times a digit appeared at the $(place)th position
-    for (int i=0; i<s; i++)
+    for (int i=0; i<s; ++i)
         count[ (static_cast<int>(data[i])/place)%10 ]++;
 
     // Cummulative adding
-    for (int i=1; i<10; i++)
+    for (int i=1; i<10; ++i)
         count[i] += count[i-1];
     
     // Shifting right
-    for (int i=9; i>0; i--)
+    for (int i=9; i>0; --i)
         count[i] = count[i-1];
     count[0] = 0;
 
     // Filling output array
-    for (int i=0; i<s; i++){
+    for (int i=0; i<s; ++i){
         float val = data[i];
         int digit = (static_cast<int>(val)/place)%10;
         output[ count[digit] ] = val;
@@ -253,19 +227,19 @@ void Algorithms::r_cs(int place){
     }
 
     // Filling original array
-    for (int i=0; i<s; i++){
+    for (int i=0; i<s; ++i){
         data(i, output[i]);
     }
 }
 int Algorithms::r_max(){
     int max_i = 0;
-    for (int i=0; i<data.amount; i++)
+    for (int i=0, j=data.amount; i<j; ++i)
         if (data.cmp(i, max_i) == 1) max_i = i;
     return data[max_i];
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::insertionsort(){
-    for (int i = 1; i<data.amount; i++){
+    for (int i = 1, k=data.amount; i<k; ++i){
         int curr = data[i];
         int j = i - 1;
 
@@ -279,11 +253,11 @@ void Algorithms::insertionsort(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::selectionsort(){
     int min_val_index = 0;
-    for (int i=0; i<data.amount-1; ++i){
+    for (int i=0, n=data.amount; i<n-1; ++i){
         min_val_index = i;
 
         // Finding the minimum value index
-        for (int j=i+1; j<data.amount; ++j)
+        for (int j=i+1; j<n-1; ++j)
             if (data.cmp(j, min_val_index) == -1)
                 min_val_index = j;
         

@@ -38,16 +38,17 @@ $(BIN)/$(EXEC): $(OBJ_FILES)
 $(BIN)/%.o: $(SRC)/%.cpp
 	$(CC) -c $^ $(CFLAGS) -o $@ -I $(INC) -L $(LIBS)
 
-.PHONY: run clean
+.PHONY: run clean debug build
 
 # Build & Run executable
 run: $(BIN)/$(EXEC)
 	./$(BIN)/$(EXEC)
 
+build: $(BIN)/$(EXEC)
+
 debug: $(BIN)/$(EXEC)
 	gdb $(BIN)/$(EXEC)
 
-# Clean
 clean:
 	rm -f $(BIN)/*
 

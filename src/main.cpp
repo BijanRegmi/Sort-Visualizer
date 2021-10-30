@@ -7,12 +7,12 @@
 int main(){
     sf::VideoMode def = sf::VideoMode::getDesktopMode();
     const int FPS = 60;
-    const int WIDTH = 1000;//def.width;
-    const int HEIGHT = 600;//def.height;
+    const int WIDTH = def.width;
+    const int HEIGHT = def.height;
     const int BAR_H = 0.05*HEIGHT;
     const int DATA_SIZE = 100;
 
-    sf::RenderWindow win(sf::VideoMode(WIDTH, HEIGHT), "SORT", sf::Style::Default);
+    sf::RenderWindow win(def, "SORT", sf::Style::Default);
     win.setFramerateLimit(FPS);
     sf::Event ev;
     
