@@ -37,12 +37,12 @@ void Viewer::render(){
 void Viewer::add_to_track(volatile int* w, int s, uint32_t c){
     tracklist.push_back(std::pair<volatile int*, uint32_t>(w, c));
     
-    std::deque< volatile int*> a(s);
+    std::deque< volatile int* > a;
     for (; s!=0; s--){
-        volatile int* *iptr = new volatile int*;
-        a.push_back(*iptr);
+        volatile int* ptr = new volatile int;
+        *ptr = -1;
+        a.push_back(ptr);
     }
-    
     trackvalues.push_back(a);
 }
 
@@ -60,51 +60,50 @@ void Viewer::checkvalues(){
 }
 
 void Viewer::updatetrackvalues(){
-    int n = tracklist.size();
+    for (int i=0, j=tracklist.size(); i!=j; i++){
+        int n = trackvalues[i].size();
+        volatile int* p_val = tracklist[i].first;       // Pointer to current value
+        volatile int* p_pval = trackvalues[i][n-1];    // Pointer to previous value
+        if (p_val == 0 || p_pval == 0){
+            std::cout << "Pointer is null lul.\n";
+            continue;
+        }
 
-    for (int i=0; i<n; i++){
-        volatile int* val = tracklist[i].first;       // Current value
-        if (trackvalues[i].back() == 0) continue;
-        int pval = *(trackvalues[i].back());   // Previous value
-        if (pval != *val){                   // Update only if value has changed
+        if (*p_val != *p_pval){
             delete trackvalues[i].front();
             trackvalues[i].pop_front();
-            trackvalues[i].push_back(val);
+
+            volatile int* ptr = new volatile int;
+            *ptr = *p_val;
+            trackvalues[i].push_back(ptr);
         }
     }
 }
 
 void Viewer::cleartracking(){
-    for (int i=0, j=trackvalues.size(); i!=j; ++i){
-        for (int k=0, l=trackvalues[i].size(); k!=l; ++k)
+    tracklist.clear();
+    for (int i=0, j = trackvalues.size(); i!=j; ++i){
+        for (int k=0, l=trackvalues[i].size(); k!=l; ++k){
             delete trackvalues[i][k];
+        }
     }
     trackvalues.clear();
-    tracklist.clear();
 }
 
 // Colorizer
 void Viewer::colorizer(int index){
-    int n = tracklist.size();
     int a = blk.amount;
 
-    for (int i=0; i<n; i++){
-        int n2 = trackvalues[i].size();
-        for (int j=0; j<n2; j++){
-            if (trackvalues[i][j] == 0) continue;
-
-            volatile int x = *(trackvalues[i][j]);
-
-            if ( x < 0 || x > a) continue;
-            else if(x == index){
+    for (int i=0, j=trackvalues.size(); i!=j; ++i){
+        for (int k=0, l=trackvalues[i].size(); k!=l; ++k){
+            volatile int* p_val = trackvalues[i][k];
+            if (p_val==0) continue;
+            volatile int val = *p_val;
+            if (val == index && val >= 0 && val < a){
                 rects[index].setFillColor(sf::Color(tracklist[i].second));
                 return;
             }
         }
-        /*if (*tracklist[i].first == index){
-            rects[index].setFillColor(sf::Color(tracklist[i].second));
-            return;
-        }*/
     }
     rects[index].setFillColor(sf::Color::White);
 }

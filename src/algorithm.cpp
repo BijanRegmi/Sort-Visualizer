@@ -179,18 +179,18 @@ void Algorithms::m_merge(volatile int left, int mid, volatile int right){
             data(k, right_arr[j]);
             j++; 
         }
-        view.checkvalues();
+        // view.checkvalues();
         k++;
     }
     while (i<left_n){
         data(k, left_arr[i]);
         i++; k++;
-        view.checkvalues();
+        // view.checkvalues();
     }
     while (j<right_n){
         data(k, right_arr[j]);
         j++; k++;
-        view.checkvalues();
+        // view.checkvalues();
     }
     
     view.cleartracking();    

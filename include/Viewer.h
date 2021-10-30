@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <queue>
-#include<deque>
+#include <deque>
+#include <list>
 #include <tuple>
 
 #include "blocks.h"
