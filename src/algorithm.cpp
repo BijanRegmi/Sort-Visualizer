@@ -28,8 +28,10 @@ void Algorithms::setalg(int s){
         selectedAlg = (selectedAlg + algcount - 1)%algcount;
     else
         selectedAlg = s;
-    data.reset_counters();
-    view.unmark_all();
+    if (!working){
+        data.reset_counters();
+        view.unmark_all();
+    }
 }
 
 // Data Extractors
@@ -56,27 +58,27 @@ void Algorithms::algo(){
             break;
         case 2:
             Algorithms::bubblesort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 3:
             Algorithms::mergesort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 4:
             Algorithms::quicksort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 5:
             Algorithms::radixsort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 6:
             Algorithms::insertionsort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         case 7:
             Algorithms::selectionsort();
-            //Algorithms::check();
+            Algorithms::check();
             break;
         }
         working = false;
@@ -97,7 +99,7 @@ void Algorithms::check(){
             break;
         }
         data.sound.play(2, 0.5+(0.5*val)/data.max_val);
-        view.mark(c, 0x00ff00ff);                           // Mark green for sorted element
+        view.mark(c+1, 0x00ff00ff);                           // Mark green for sorted element
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
     sorted = (n == c) ? true : false;
@@ -117,10 +119,10 @@ void Algorithms::shuffle(){
 void Algorithms::bubblesort(){
     for (int i = 0, n = data.amount; i != n-1; ++i){
         for (int j = 0; j < n-i-1; ++j){
-            view.mark(j, 0xff0000ff);               // Mark reading index as red
+            view.mark(j, 0xff0000ff);               // Mark reading index
             if (data.cmp(j, j+1) == 1)
                 data.b_swap(j, j+1);
-            view.unmark(j);                         // Clear the marking
+            view.unmark(j);                         // Unmark reading index
         }
     }
 }
@@ -138,8 +140,8 @@ void Algorithms::m_ms(int left, int right){
     m_merge(left, mid, right);
 }
 void Algorithms::m_merge(int left, int mid, int right){
-    view.mark(left, 0x29f22cff);    // Mark left boundary
-    view.mark(right, 0x08587aff);   // Mark right boundary
+    view.mark(left, 0x00ffffff);    // Mark left boundary
+    view.mark(right, 0xff00ffff);   // Mark right boundary
     int left_n = mid - left + 1;
     int right_n = right - mid;      // right - (mid + 1) + 1
     
@@ -149,14 +151,14 @@ void Algorithms::m_merge(int left, int mid, int right){
 
     // Copying arrays
     for (int i=0; i<left_n; ++i){
-        view.mark(left+i, 0xff0000ff);               // Mark reading index as red
+        view.mark(left+i+1, 0xff0000ff);                // Mark reading index
         left_arr[i] = data[left+i];
-        view.unmark(left+i);                         // Unmark reading index
+        view.unmark(left+i+1);                          // Unmark reading index
     }
     for (int i=0; i<right_n; ++i){
-        view.mark(mid+1+i, 0xff0000ff);              // Mark reading index as red
+        view.mark(mid+1+i, 0xff0000ff);                 // Mark reading index
         right_arr[i] = data[mid+1+i];
-        view.unmark(mid+1+i);                        // Unmark reading index
+        view.unmark(mid+1+i);                           // Unmark reading index
     }
 
     // Pointing ints
@@ -167,7 +169,7 @@ void Algorithms::m_merge(int left, int mid, int right){
     // Writing to data
     while (i<left_n && j<right_n)
     {
-        view.mark(k, 0xff0000ff);           // Mark writing index as red
+        view.mark(k-1, 0x0000ffff);           // Mark writing index
         if (left_arr[i] <= right_arr[j]){
             data(k, left_arr[i]);
             i++;
@@ -175,21 +177,21 @@ void Algorithms::m_merge(int left, int mid, int right){
             data(k, right_arr[j]);
             j++; 
         }
-        view.unmark(k);                     // Unmark writing index
+        view.unmark(k-1);                     // Unmark writing index
         k++;
     }
     while (i<left_n){
-        view.mark(k, 0xff0000ff);           // Mark writing index as red
+        view.mark(k-1, 0x0000ffff);           // Mark writing index
         data(k, left_arr[i]);
         i++;
-        view.unmark(k);                     // Unmark writing index
+        view.unmark(k-1);                     // Unmark writing index
         k++;
     }
     while (j<right_n){
-        view.mark(k, 0xff0000ff);           // Mark writing index as red
+        view.mark(k-1, 0x0000ffff);           // Mark writing index
         data(k, right_arr[j]);
         j++;
-        view.unmark(k);                     // Unmark writing index
+        view.unmark(k-1);                     // Unmark writing index
         k++;
     }
     view.unmark(left);                      // Unmark left boundary
@@ -213,12 +215,13 @@ int Algorithms::q_fix(int low, int high){
     int i = low - 1;
 
     for (int j = low; j<high; ++j){
-        view.mark(j, 0xff0000ff);               // Mark reading index as red
+        view.mark(i, j-1, 0xde5f5fff);                      // Mark reading index [range] as light red
+        view.mark(j-1, 0xff0000ff);
         if (data.cmp(j, high) == -1){
             i++;
             if (i != j) data.b_swap(i, j);
         }
-        view.unmark(j);                         // Unmark reading index
+        view.unmark(i-1, j);                                // Unmark reading index [range]
     }
 
     data.b_swap(i+1, high);
@@ -271,46 +274,47 @@ void Algorithms::r_cs(int place){
 int Algorithms::r_max(){
     int max_i = 0;
     for (int i=0, j=data.amount; i<j; ++i){
-        view.mark(i, 0xff0000ff);                       // Mark reading index as red
+        view.mark(i, 0xffff00ff);                       // Mark max finding index as yellow
         if (data.cmp(i, max_i) == 1) max_i = i;
-        view.unmark(i);                                 // Unmark reading index
+        view.unmark(i);                                 // Unmark max finding index
     }
     return data[max_i];
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::insertionsort(){
     for (int i = 1, k=data.amount; i<k; ++i){
-        view.mark(i, 0xff0000ff);
+        view.mark(i, 0xff0000ff);               // Mark reading index as red
         int curr = data[i];
         int j = i - 1;
 
         while (j>=0 && data[j] > curr){
-            view.mark(j, 0x0000ffff);
+            view.mark(j+1, 0x0000ffff);         // Mark writing index as blue
             data(j+1, data[j]);
-            view.unmark(j);
+            view.unmark(j+1);                   // Unmark writing index
             j--;
         }
         data(j+1, curr);
+        view.unmark(i);                         // Unmark reading index
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Algorithms::selectionsort(){
     int min_val_index = 0;
-    for (int i=0, n=data.amount; i<n-1; ++i){
+    for (int i=0, n=data.amount; i<n; ++i){
         min_val_index = i;
 
         // Finding the minimum value index
-        for (int j=i+1; j<n-1; ++j){
-            view.mark(j, 0xff0000ff);
+        for (int j=i+1; j<n; ++j){
+            view.mark(j, 0xffff00ff);                   // Mark min finding index as yellow
             if (data.cmp(j, min_val_index) == -1)
                 min_val_index = j;
-            view.unmark(j);
+            view.unmark(j);                             // Unmark min finding index
         }
         
         if (min_val_index != i){
-            view.mark(i, 0x0000ffff);
+            view.mark(i, 0x0000ffff);                   // Mark writing index as red
             data.b_swap(i, min_val_index);
-            view.unmark(i);
+            view.unmark(i);                             // Mark writing index
         }
     }
 }
