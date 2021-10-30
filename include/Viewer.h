@@ -16,6 +16,8 @@ private:
 
     std::vector<sf::RectangleShape> rects;  // Rectangles representing the sorting data
 
+    std::vector<sf::Color> cols;
+
     int width, height; float r_dx;          // Width and height of the sprite and width of individual rectangle block
 
     std::vector< std::pair<volatile int*, uint32_t> > tracklist; // Pair < address to check value for, uint32 color>
@@ -34,6 +36,13 @@ public:
 
     // Renderer
     void render();
+
+    // Marker
+    void mark(int index, uint32_t color);
+    void mark(int start, int end, uint32_t color);
+    void unmark(int index);
+    void unmark(int start, int end);
+    void unmark_all();
 };
 
 #endif // VIEWER_H
