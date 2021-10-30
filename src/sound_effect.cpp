@@ -3,7 +3,7 @@
 
 sound_effect::sound_effect(){
     if (
-    read_buffer.loadFromFile("Sound_Effects/1.wav") && 
+    read_buffer.loadFromFile("Sound_Effects/read.wav") && 
     write_buffer.loadFromFile("Sound_Effects/write.wav") &&
     check_buffer.loadFromFile("Sound_Effects/check.wav") &&
     sorted_buffer.loadFromFile("Sound_Effects/hoorah.wav") &&
