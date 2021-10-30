@@ -17,6 +17,9 @@ Bar::Bar(int w, int h, Blocks* b, Algorithms* a){
 
     text.setFont(font);
     text.setCharacterSize(10);
+    desc.setFont(font);
+    desc.setCharacterSize(10);
+    desc.setPosition(0, 20);
 }
 
 // Renderer
@@ -34,8 +37,10 @@ void Bar::render(){
          << " | Sorted: "        << (alg->sorted ? "Yes" : "No ") ;
 
     text.setString(sstr.str());
+    desc.setString(alg->algdesc);
 
     texture.clear();
     texture.draw(text);
+    texture.draw(desc);
     texture.display();
 }

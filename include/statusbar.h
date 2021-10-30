@@ -20,6 +20,7 @@ private:
 
     sf::Font font;
     sf::Text text;
+    sf::Text desc;
 
 public:
     // Constructors

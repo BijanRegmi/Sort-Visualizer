@@ -23,13 +23,6 @@ public:
         int s;                  // Swap counter
     }counter;
     
-    struct HEADS
-    {
-        int r;                      // Reading head
-        int c;                      // Checking head
-        int w;                      // Writing head
-    }head;
-    
     std::vector<int> items;         // Array of items
     
     sound_effect& sound;            // Speaker
@@ -43,7 +36,6 @@ public:
 
     // Setters
     void reset_counters();
-    void reset_head();
     void setdelay(int delay_time);  // Set delay for reads and writes
 
     // Operator Overloading
