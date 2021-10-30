@@ -10,9 +10,9 @@ int main(){
     const int WIDTH = def.width;
     const int HEIGHT = def.height;
     const int BAR_H = 0.05*HEIGHT;
-    const int DATA_SIZE = 100;
+    const int DATA_SIZE = 200;
 
-    sf::RenderWindow win(def, "SORT", sf::Style::Default);
+    sf::RenderWindow win(def, "SORT", sf::Style::Fullscreen);
     win.setFramerateLimit(FPS);
     sf::Event ev;
     

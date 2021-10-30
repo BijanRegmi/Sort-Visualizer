@@ -33,6 +33,9 @@ private:
 
     // Algorithm list
     const std::vector<std::string> alglist = {"Check", "Shuffle", "Bubblesort", "Mergesort", "Quicksort", "Radixsort", "InsertionSort", "SelectionSort"};
+
+    // Set the description of the selected algotithm
+    void setdesc();
 public:
     // Constructor
     Algorithms(Blocks& data_array, Viewer& view);
@@ -45,7 +48,7 @@ public:
     bool working;                           // Set true when the algo is performing task
     bool sorted;
     int selectedAlg;                        // Currently selected algorithm index from alglist
-
+    std::string algdesc;                    // Description of the currently selected alg | Used by status bar
 
     // Setters
     void setalg(int algnumber);             // Set Algorithm to use

@@ -32,6 +32,39 @@ void Algorithms::setalg(int s){
         data.reset_counters();
         view.unmark_all();
     }
+    setdesc();
+}
+
+void Algorithms::setdesc(){
+    switch (selectedAlg)
+    {
+    case 0:
+        algdesc = "Checks if the array is sorted or not. Colors green for sorted blocks and red for unsorted block.";
+        break;
+    case 1:
+        algdesc = "Shuffles the blocks using std::random_shuffle.";
+        break;
+    case 2:
+        algdesc = "Bubblesort O(n^2):: Reading: Red";
+        break;
+    case 3:
+        algdesc = "Mergesort O(nlogn):: Reading: Red | Writing: Blue | Left: Cyan | Right: Yellow";
+        break;
+    case 4:
+        algdesc = "Quicksort O(nlogn): Reading: Red | Swaping elements: Light Red | Pivot: Green";
+        break;
+    case 5:
+        algdesc = "Radixsort O(d*(n+b)): Reading: Red | Writing: Blue | Finding Max: Yellow";
+        break;
+    case 6:
+        algdesc = "InsertionSort O(n^2): Reading: Red | Writing: Blue";
+        break;
+    case 7:
+        algdesc = "Selection Sort O(n^2): Writing: Blue | Finding Min: Yellow";
+        break;
+    default:
+        break;
+    }
 }
 
 // Data Extractors
@@ -88,6 +121,7 @@ void Algorithms::algo(){
 // Sorting Algorithm Implementations
 void Algorithms::check(){
     selectedAlg = 0;
+    setdesc();
     int n = data.amount-1, c = -1;
     
     view.mark(0, 0x00ff00ff);                               // First element is obviously in correct order
@@ -100,7 +134,7 @@ void Algorithms::check(){
         }
         data.sound.play(2, 0.5+(0.5*val)/data.max_val);
         view.mark(c+1, 0x00ff00ff);                           // Mark green for sorted element
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000/n));     // Whatever be the size of the data checking is completed in 2sec
     }
     sorted = (n == c) ? true : false;
     if (sorted){
@@ -141,7 +175,7 @@ void Algorithms::m_ms(int left, int right){
 }
 void Algorithms::m_merge(int left, int mid, int right){
     view.mark(left, 0x00ffffff);    // Mark left boundary
-    view.mark(right, 0xff00ffff);   // Mark right boundary
+    view.mark(right, 0xffff00ff);   // Mark right boundary
     int left_n = mid - left + 1;
     int right_n = right - mid;      // right - (mid + 1) + 1
     
@@ -215,13 +249,13 @@ int Algorithms::q_fix(int low, int high){
     int i = low - 1;
 
     for (int j = low; j<high; ++j){
-        view.mark(i, j-1, 0xde5f5fff);                      // Mark reading index [range] as light red
-        view.mark(j-1, 0xff0000ff);
+        view.mark(i, j-1, 0xde5f5fff);                      // Mark swaping indexes as light red
+        view.mark(j-1, 0xff0000ff);                         // Mark reading index as red
         if (data.cmp(j, high) == -1){
             i++;
             if (i != j) data.b_swap(i, j);
         }
-        view.unmark(i-1, j);                                // Unmark reading index [range]
+        view.unmark(i-1, j);                                // Unmark swaping indexes and reading index
     }
 
     data.b_swap(i+1, high);
