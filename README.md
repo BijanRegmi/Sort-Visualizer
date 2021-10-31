@@ -38,16 +38,17 @@ I|Set Insertion Sort as selected algorithm
 Shift S|Set selection Sort as selected algorithm
 
 ### **Delay**
+Shown as (Reading delay, Writing delay) in status bar
 KEY | ACTION
 ----|-----------
-+|Increase reading delay by 10μs
--|Decrease reading delay by 10μs
-Ctrl +|Increase reading delay by 100μs
-Ctrl -|Decrease reading delay by 100μs
-Shift +|Increase writing delay by 10μs
-Shift -|Decrease writing delay by 10μs
-Ctrl Shift +|Increase writing delay by 100μs
-Ctrl Shift -|Decrease writing delay by 100μs
++|Increase reading delay by 100μs
+-|Decrease reading delay by 100μs
+Ctrl +|Increase reading delay by 1000μs
+Ctrl -|Decrease reading delay by 1000μs
+Shift +|Increase writing delay by 100μs
+Shift -|Decrease writing delay by 100μs
+Ctrl Shift +|Increase writing delay by 1000μs
+Ctrl Shift -|Decrease writing delay by 1000μs
 0|Set delay to 0μs
 
 ### **Misc**
@@ -66,4 +67,4 @@ Down_Arrow|Cycle through modes in reverse direction
 - SelectionSort
 
 ###### TODO
-###### Add more sorting algorithms
+###### ~~Add more sorting algorithms~~
