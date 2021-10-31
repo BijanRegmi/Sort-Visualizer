@@ -60,7 +60,7 @@ void Algorithms::setdesc(){
         algdesc = "InsertionSort O(n^2): Reading: Red | Writing: Blue";
         break;
     case 7:
-        algdesc = "Selection Sort O(n^2): Writing: Blue | Finding Min: Yellow";
+        algdesc = "Selection Sort O(n^2): Writing: Blue | Finding Min: Purple";
         break;
     default:
         break;
@@ -345,7 +345,7 @@ void Algorithms::selectionsort(){
 
         // Finding the minimum value index
         for (int j=i+1; j<n; ++j){
-            view.mark(j, 0xffff00ff);                   // Mark min finding index as yellow
+            view.mark(j, 0x411e59ff);                   // Mark min finding index as purple
             if (data.cmp(j, min_val_index) == -1)
                 min_val_index = j;
             view.unmark(j);                             // Unmark min finding index
