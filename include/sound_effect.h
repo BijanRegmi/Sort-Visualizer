@@ -15,10 +15,12 @@ private:
     sf::Sound check;
     sf::Sound sorted;
     sf::Sound notsorted;
+    bool isMuted;
 public:
     sound_effect();
     void play(int task, float pitch);
     void stop();
+    void toggleMute();
 };
 
 #endif // SOUND_H
