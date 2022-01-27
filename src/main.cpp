@@ -52,7 +52,10 @@ int main(){
                         break;
 
                     case sf::Keyboard::M:
-                        alg.setalg(3);
+                        if (ev.key.control)
+                            s_effect.toggleMute();
+                        else
+                            alg.setalg(3);
                         break;
 
                     case sf::Keyboard::Q:

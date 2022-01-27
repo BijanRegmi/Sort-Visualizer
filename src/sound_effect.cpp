@@ -14,9 +14,12 @@ sound_effect::sound_effect(){
     check.setBuffer(check_buffer);
     sorted.setBuffer(sorted_buffer);
     notsorted.setBuffer(notsorted_buffer);
+
+    isMuted = false;
 }
 
 void sound_effect::play(int task, float pitch){
+    if (isMuted) return;
     switch (task)
     {
     case 0:
@@ -45,5 +48,10 @@ void sound_effect::play(int task, float pitch){
 void sound_effect::stop(){
     read.stop();
     write.stop();
+}
+
+void sound_effect::toggleMute(){
+    stop();
+    isMuted ^= true;
 }
 
