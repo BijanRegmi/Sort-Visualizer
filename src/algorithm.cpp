@@ -6,13 +6,15 @@ Algorithms::Algorithms(Blocks& b, Viewer& v):data(b), view(v){
     working = false;
     sorted = true;
     algcount = alglist.size();
-
-    sortingThread = std::thread(&Algorithms::algo, this);   // Setup the thread
 }
 
 // Controllers
 void Algorithms::start(){
+    if (working) return;
     working = true;
+    if (sortingThread.joinable())
+        sortingThread.join();
+    sortingThread = std::thread(&Algorithms::algo, this);
 }
 
 void Algorithms::stop(){
@@ -74,54 +76,47 @@ std::string Algorithms::getalg(){
 
 // Thread function
 void Algorithms::algo(){
-    while(true){
-        if (!working){
-            std::cout << "";        // IDK why but this needs to be here. Prolly the thread requires some task to do.
-            continue;
-        }
-
-        data.reset_counters();
-        view.unmark_all();
-        switch(selectedAlg){
-        case 0:
-            Algorithms::check();
-            break;
-        case 1:
-            Algorithms::shuffle();
-            break;
-        case 2:
-            Algorithms::bubblesort();
-            data.stopsound();
-            Algorithms::check();
-            break;
-        case 3:
-            Algorithms::mergesort();
-            data.stopsound();
-            Algorithms::check();
-            break;
-        case 4:
-            Algorithms::quicksort();
-            data.stopsound();
-            Algorithms::check();
-            break;
-        case 5:
-            Algorithms::radixsort();
-            data.stopsound();
-            Algorithms::check();
-            break;
-        case 6:
-            Algorithms::insertionsort();
-            data.stopsound();
-            Algorithms::check();
-            break;
-        case 7:
-            Algorithms::selectionsort();
-            data.stopsound();
-            Algorithms::check();
-            break;
-        }
-        working = false;
+    data.reset_counters();
+    view.unmark_all();
+    switch(selectedAlg){
+    case 0:
+        Algorithms::check();
+        break;
+    case 1:
+        Algorithms::shuffle();
+        break;
+    case 2:
+        Algorithms::bubblesort();
+        data.stopsound();
+        Algorithms::check();
+        break;
+    case 3:
+        Algorithms::mergesort();
+        data.stopsound();
+        Algorithms::check();
+        break;
+    case 4:
+        Algorithms::quicksort();
+        data.stopsound();
+        Algorithms::check();
+        break;
+    case 5:
+        Algorithms::radixsort();
+        data.stopsound();
+        Algorithms::check();
+        break;
+    case 6:
+        Algorithms::insertionsort();
+        data.stopsound();
+        Algorithms::check();
+        break;
+    case 7:
+        Algorithms::selectionsort();
+        data.stopsound();
+        Algorithms::check();
+        break;
     }
+    working = false;
 }
 
 // Sorting Algorithm Implementations
